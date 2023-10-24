@@ -59,7 +59,7 @@ body {
   left: 300px;
   transform-style: preserve-3d;
   transform-origin: 50% 50% -300px;
-    animation: rotatefield 20s linear infinite;
+    /* animation: rotatefield 20s linear infinite; */
 }
 
 .animator {
