@@ -122,7 +122,7 @@ for (var i=0; i<cols; i++) {
     item.style.height = randomWidth+ "px";
     const itemsides = item.querySelectorAll("div>span");
     for (var i=0; i<itemsides.length; i++) {
-      itemsides[i].style.transform = "rotateY(calc(90deg*var(--i))) translateZ(calc(" + (randomWidth-1) +"px" + "/2))";
+      itemsides[i].style.transform = "rotateY(calc(90deg*var(--i))) translateZ(calc(" + (randomWidth) +"px" + "/2))";
     }
   }
 
