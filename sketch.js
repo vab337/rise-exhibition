@@ -1,4 +1,4 @@
-//CLONE TO RAT
+//CLONE TO RAT success
 //COLOR OPTIONS ADDED
 
 var zindex = 10;
