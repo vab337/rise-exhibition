@@ -11,7 +11,7 @@ const artistArr = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","
 "17", "18","19","20","21","22","23","24","25","26","27"];
 
 
-for (var i=0; i<27; i++) {
+for (var i=0; i<64; i++) {
   const cube = document.createElement("div");
   cube.className = "cube";
   cube.id = "item" + i;
@@ -44,16 +44,17 @@ for (var i=0; i<27; i++) {
 
 for (var a = 0; a < cubes.length; a++) {
   const itemsides = cubes[a].querySelectorAll("div>span");
-  for (var b = 0; b <4; b++)
-  itemsides[3].classList.add("h1text");
-  itemsides[1].classList.add("h2text");
-  itemsides[2].classList.add("h3text");
-  itemsides[0].classList.add("h4text");
+  for (var b = 0; b <4; b++) {
+  // itemsides[3].classList.add("h1text");
+  // itemsides[1].classList.add("h2text");
+  // itemsides[2].classList.add("h3text");
+  // itemsides[0].classList.add("h4text");
   // itemsides[3].innerText = artistArr[a];
   // itemsides[1].innerText = artistArr[a];
   // itemsides[2].innerText = artistArr[a];
   // itemsides[0].innerText = artistArr[a];
 
+}
 }
 
 
@@ -76,19 +77,19 @@ function rotateScene() {
 
 
 //CREATE GRID 
-var cols = 3;
-var rows = 3;
+var cols = 4;
+var rows = 4;
 var gridArr = []
 
 var w = 300;
 var h = 300;
 for (var i=0; i<cols; i++) {
   for(var j=0; j<rows; j++) {
-    for (var k=0; k<3; k++) {
+    for (var k=0; k<4; k++) {
       var xpos = i*w;
       var ypos = j*h;
       var zpos = k*(-300);
-      var index = i + j*cols + k*3*rows; 
+      var index = i + j*cols + k*4*rows; 
       gridArr[index] = new Array(xpos,ypos,zpos);
     }
   }
@@ -229,7 +230,7 @@ function showGrid() {
 
 //create NUMBER BUTTONS 
 
-for (var b = 0; b < 27 ; b++) {
+for (var b = 0; b < 64 ; b++) {
 const gridButton = document.createElement("button");
 gridButton.className = "gridButton";
 gridButton.id = "button" + b;
@@ -253,7 +254,7 @@ function gridChosen() {
     gridButtons[g].classList.remove('active-button');
     gridButtons[gridNum].classList.add('active-button');
   }
-
+  randomReplaceColor();
 };
 
 function gridHover() {
@@ -320,38 +321,19 @@ const textinput1 = document.getElementById("textinput1");
 const textinput2 = document.getElementById("textinput2");
 const textinput3 = document.getElementById("textinput3");
 var textInputs = document.getElementsByClassName("textInput");
-// textinput1.addEventListener("change",replaceText);
+textinput1.addEventListener("change",replaceText);
 const textsubmit = document.getElementById("textsubmit");
-textsubmit.addEventListener("click", randomReplaceText);
 
 
 
-// function replaceText() {
-//   for (var a = 0; a < cubes.length; a++) {
-//     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-//     for (var b = 0; b < 4; b++) {
-//     itemsides[sideNumber].classList.add("h4text");
-//     itemsides[sideNumber].innerText = textinput1.value;
-//   };
-// }
-// }
-
-function randomReplaceText() {
-  
-  for(var t=0; t<textInputs.length; t++) {
-    var randomCube=Math.floor(Math.random()*cubes.length); 
-     var randomSide = Math.floor(Math.random()*3) ;
-     for (var a = 0; a < cubes.length; a++) {
-      const itemsides = cubes[randomCube].querySelectorAll("div>span");
-      for (var b = 0; b < 4; b++) {
-      itemsides[randomSide].classList.add("h"+t+"text");
-      itemsides[randomSide].innerText = textInputs[t].value;
-    };
-  }
-  }
-
-
- 
+function replaceText() {
+  for (var a = 0; a < cubes.length; a++) {
+    const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+    for (var b = 0; b < 4; b++) {
+    itemsides[sideNumber].classList.add("header");
+    itemsides[sideNumber].innerText = textinput1.value;
+  };
+}
 }
 
 
@@ -403,10 +385,7 @@ function colorBtnfunction(item) {
   item.addEventListener("click", () => {
     const computedStyle = window.getComputedStyle(item);
     const background = computedStyle.background;
-    // replaceColor(background);
-    for(var c=0; c<6; c++) {
-      randomReplaceColor();
-    }
+    replaceColor(background);
   });
 }
 
@@ -414,31 +393,21 @@ function replaceColor(background) {
   for (var a = 0; a < cubes.length; a++) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
     for (var b = 0; b < 4; b++) {
-    // itemsides[sideNumber].style.background = background;
-        itemsides[sideNumber].classList.add('glass-effect');
+    itemsides[sideNumber].style.background = background;
+    // itemsides[sideNumber].classList.add('glass-effect');
 
   };
 }
 }
 
 function randomReplaceColor() {
-  var randomCube=Math.floor(Math.random()*cubes.length); 
-  var randomSide = Math.floor(Math.random()*3)
+
   for (var a = 0; a < cubes.length; a++) {
-    const itemsides = cubes[randomCube].querySelectorAll("div>span");
+    const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+    tops[cubeChosen].classList.add('glass-effect');
+
     for (var b = 0; b < 4; b++) {
-    // itemsides[sideNumber].style.background = background;
         itemsides[b].classList.add('glass-effect');
-        // itemsides[randomSide].innerText = "View Sonic";
   };
 }
 }
-
-
-// buttons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     const computedStyle = window.getComputedStyle(button);
-//     const backgroundColor = computedStyle.backgroundColor;
-//     alert(`Background color: ${backgroundColor}`);
-//   });
-// });

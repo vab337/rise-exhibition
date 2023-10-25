@@ -15,6 +15,11 @@
   src: url(assets/Aeonik-Regular.ttf);
 }
 
+@font-face {
+  font-family: Monopol;
+  src: url(assets/Monopol-TRIAL.otf);
+}
+
 :root {
   --cubeW: 100px;
   --cubeH: 100px;
@@ -70,10 +75,10 @@ body {
 
 @keyframes rotatefield {
   0%{
-    transform: rotateX(-30deg) rotateY(0deg) ;
+    transform: rotateX(0deg) rotateY(0deg) ;
   }
   100%{
-    transform: rotateX(-30deg) rotateY(360deg);
+    transform: rotateX(0deg) rotateY(360deg);
   }
 }
 
@@ -107,7 +112,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 0%;
+  height: 100%;
   overflow: hidden;
   /* background: var(--greengrad); */
   /* border: 1px solid white; */
@@ -251,6 +256,12 @@ button:hover {
 .grid-hover {
   background-color: #bbc7d68a;
 } 
+
+.header {
+  padding: 10px;
+  font-family: Monopol;
+  font-size: 23rem;
+}
 
 .h1text {
   word-wrap: break-word;
