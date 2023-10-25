@@ -253,7 +253,7 @@ function gridChosen() {
     gridButtons[g].classList.remove('active-button');
     gridButtons[gridNum].classList.add('active-button');
   }
-  randomReplaceColor();
+
 };
 
 function gridHover() {
@@ -320,19 +320,38 @@ const textinput1 = document.getElementById("textinput1");
 const textinput2 = document.getElementById("textinput2");
 const textinput3 = document.getElementById("textinput3");
 var textInputs = document.getElementsByClassName("textInput");
-textinput1.addEventListener("change",replaceText);
+// textinput1.addEventListener("change",replaceText);
 const textsubmit = document.getElementById("textsubmit");
+textsubmit.addEventListener("click", randomReplaceText);
 
 
 
-function replaceText() {
-  for (var a = 0; a < cubes.length; a++) {
-    const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-    for (var b = 0; b < 4; b++) {
-    itemsides[sideNumber].classList.add("h4text");
-    itemsides[sideNumber].innerText = textinput1.value;
-  };
-}
+// function replaceText() {
+//   for (var a = 0; a < cubes.length; a++) {
+//     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+//     for (var b = 0; b < 4; b++) {
+//     itemsides[sideNumber].classList.add("h4text");
+//     itemsides[sideNumber].innerText = textinput1.value;
+//   };
+// }
+// }
+
+function randomReplaceText() {
+  
+  for(var t=0; t<textInputs.length; t++) {
+    var randomCube=Math.floor(Math.random()*cubes.length); 
+     var randomSide = Math.floor(Math.random()*3) ;
+     for (var a = 0; a < cubes.length; a++) {
+      const itemsides = cubes[randomCube].querySelectorAll("div>span");
+      for (var b = 0; b < 4; b++) {
+      itemsides[randomSide].classList.add("h"+t+"text");
+      itemsides[randomSide].innerText = textInputs[t].value;
+    };
+  }
+  }
+
+
+ 
 }
 
 
@@ -384,7 +403,10 @@ function colorBtnfunction(item) {
   item.addEventListener("click", () => {
     const computedStyle = window.getComputedStyle(item);
     const background = computedStyle.background;
-    replaceColor(background);
+    // replaceColor(background);
+    for(var c=0; c<6; c++) {
+      randomReplaceColor();
+    }
   });
 }
 
@@ -392,19 +414,31 @@ function replaceColor(background) {
   for (var a = 0; a < cubes.length; a++) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
     for (var b = 0; b < 4; b++) {
-    itemsides[sideNumber].style.background = background;
-    // itemsides[sideNumber].classList.add('glass-effect');
+    // itemsides[sideNumber].style.background = background;
+        itemsides[sideNumber].classList.add('glass-effect');
 
   };
 }
 }
 
 function randomReplaceColor() {
-
+  var randomCube=Math.floor(Math.random()*cubes.length); 
+  var randomSide = Math.floor(Math.random()*3)
   for (var a = 0; a < cubes.length; a++) {
-    const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+    const itemsides = cubes[randomCube].querySelectorAll("div>span");
     for (var b = 0; b < 4; b++) {
+    // itemsides[sideNumber].style.background = background;
         itemsides[b].classList.add('glass-effect');
+        // itemsides[randomSide].innerText = "View Sonic";
   };
 }
 }
+
+
+// buttons.forEach(button => {
+//   button.addEventListener('click', () => {
+//     const computedStyle = window.getComputedStyle(button);
+//     const backgroundColor = computedStyle.backgroundColor;
+//     alert(`Background color: ${backgroundColor}`);
+//   });
+// });
