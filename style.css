@@ -24,6 +24,7 @@ body {
   font-family: Light;
   user-select: none; /* Standard syntax */
   padding: 5%;
+  gap: 8px;
 }
 
 a {
