@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cube field</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="assets/jquery-3.7.1.min.js"></script>
+
+
+  </head>
+
+  <body>
+
+    <div id="container" class="animator">
+    </div>
+    <!-- <input type="text" id="h1input" placeholder="h1 text">  -->
+  <div class="inputscontainer" id="inputscontainer">
+    <div id="appTitle">4x4 grid</div>
+
+    <div id="gridbuttoncontainer"></div>
+
+    <div id="sidecontainer"></div>
+    <div id="textinputcontainer">
+      <textarea class="textInput"id="textinput1">
+        Headline
+      </textarea>
+      <button id="textsubmit">Submit text</button>
+
+    </div>
+
+    <div id="photoinputcontainer">
+      
+      <input type='file' id="imgInput"/>
+     </div>
+
+    <div id="colorinputcontainer">
+      <button id="color1"></button>
+      <button id="color2"></button>
+      <button id="color3"></button> 
+      <button id="color4"></button>  
+      <button id="color5"></button>   
+    </div>
+
+
+<br>
+
+
+  </div>
+  <div id="generalcontrols">
+  <button id="rotate" class="togglebtn">Rotate</button>
+  <button id="showgrid" class="togglebtn">Show grid</button>
+  <button id="hidecontrols" class="togglebtn">Hide controls</button>
+</div>
+    <script src="sketch.js"></script>
+  </body>
+</html>
