@@ -300,8 +300,7 @@ button:hover {
 }
 
 #color1 {
-  /* background: var(--blue); */
-  background: radial-gradient(circle, #041D30 0% #BBC7D6 70%, #ffffff00 100%);
+  background: var(--blue);
  
 }
 
