@@ -305,11 +305,27 @@ const textsubmit = document.getElementById("textsubmit");
 
 
 
+textsubmit.addEventListener('click', () => {
+  if (topChoose) {
+    tops[cubeChosen].classList.add('h4text');
+    tops[cubeChosen].innerText = "A Global \n Visual Arts Competition \n and Exhibition";
+    topChoose=false;
+  } else {
+  for (var a = 0; a < cubes.length; a++) {
+    const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+    for (var b = 0; b < 4; b++) {
+      itemsides[sideNumber].innerText = "A Global \n Visual Arts Competition \n and Exhibition"
+   
+    };
+}}
+});
+
+
+
 function replaceText() {
   for (var a = 0; a < cubes.length; a++) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
     for (var b = 0; b < 4; b++) {
-    itemsides[sideNumber].classList.add("header");
     itemsides[sideNumber].innerText = textinput1.value;
   };
 }
@@ -388,12 +404,11 @@ function addColor() {
 
   for (var a = 0; a < cubes.length; a++) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-    tops[cubeChosen].classList.add('glass-effect');
+    // tops[cubeChosen].classList.add('glass-effect');
 
     for (var b = 0; b < 4; b++) {
-        itemsides[b].classList.add('glass-effect');
+        // itemsides[b].classList.add('glass-effect');
         itemsides[b].classList.add('h4text');
-        itemsides[b].innerText = "A Global \n Visual Arts Competition \n and Exhibition"
 
      };
 }

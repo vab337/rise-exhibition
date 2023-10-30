@@ -327,8 +327,9 @@ button:hover {
 
 .h4text {
   word-wrap: break-word;
-  font-size: 70px;
-  line-height: 60px;
+  color: white;
+  font-size: 40px;
+  line-height: 45px;
   /* font-size: 50px;
   line-height: 40px; */
   letter-spacing: −5px; 
@@ -377,7 +378,6 @@ box-shadow: inset 0 0 50px #bbc7d6eb;
 border-radius: 10px;
 /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
 /* backdrop-filter: blur(3px); */
--webkit-backdrop-filter: blur(8.6px);
 /* border: 1px solid rgba(255, 255, 255, 0.21); */
 }
 
