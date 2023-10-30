@@ -52,10 +52,11 @@ var isRotating = false;
 
 function rotateScene() {
   if(isRotating == false) {
+  
   container.classList.add("animator");
   isRotating = true;
 } else {
-  container.classList.remove("animator");
+  container.classList = [];  
   isRotating = false;
 }
 }
