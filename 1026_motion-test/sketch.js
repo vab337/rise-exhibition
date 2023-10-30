@@ -11,7 +11,7 @@ const artistArr = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","
 "17", "18","19","20","21","22","23","24","25","26","27"];
 
 
-for (var i=0; i<64; i++) {
+for (var i=0; i<27; i++) {
   const cube = document.createElement("div");
   cube.className = "cube";
   cube.id = "item" + i;
@@ -21,6 +21,8 @@ for (var i=0; i<64; i++) {
 
   //create div that hold the sides 
   const sidescontainer = document.createElement("div");
+  sidescontainer.className = "sidescontainer";
+
   cube.appendChild(sidescontainer);
 
   //create top side
@@ -29,6 +31,8 @@ for (var i=0; i<64; i++) {
   top.addEventListener("click", itemClicked);
   top.id = "top" + i;
   cube.appendChild(top);
+  // top.classList.add('glass-effect');
+
   
 
   //create sides
@@ -41,24 +45,6 @@ for (var i=0; i<64; i++) {
     side.setAttribute("style", "--i:"+j);
   }
 }
-
-for (var a = 0; a < cubes.length; a++) {
-  const itemsides = cubes[a].querySelectorAll("div>span");
-  for (var b = 0; b <4; b++) {
-  // itemsides[3].classList.add("h1text");
-  // itemsides[1].classList.add("h2text");
-  // itemsides[2].classList.add("h3text");
-  // itemsides[0].classList.add("h4text");
-  // itemsides[3].innerText = artistArr[a];
-  // itemsides[1].innerText = artistArr[a];
-  // itemsides[2].innerText = artistArr[a];
-  // itemsides[0].innerText = artistArr[a];
-
-}
-}
-
-
-
 
 // ROTATE
 document.getElementById("rotate").addEventListener("click", rotateScene);
@@ -76,20 +62,21 @@ function rotateScene() {
 
 
 
-//CREATE GRID 
-var cols = 4;
-var rows = 4;
+//CREATE GRID & POSITION CUBES
+var cols = 3;
+var rows = 3;
+var layers = 3;
 var gridArr = []
 
 var w = 300;
 var h = 300;
 for (var i=0; i<cols; i++) {
   for(var j=0; j<rows; j++) {
-    for (var k=0; k<4; k++) {
+    for (var k=0; k<layers; k++) {
       var xpos = i*w;
       var ypos = j*h;
       var zpos = k*(-300);
-      var index = i + j*cols + k*4*rows; 
+      var index = i + j*cols + k*cols*rows; 
       gridArr[index] = new Array(xpos,ypos,zpos);
     }
   }
@@ -105,21 +92,11 @@ for (var i=0; i<cols; i++) {
     cubes[j].style.height = randomWidth + "px";
     cubes[j].style.left = x  + "px";
     cubes[j].style.top = y  + "px";
-    cubes[j].animate(
-      [
-        { transform:"translateZ(" + z + "px)" + "rotateY(0deg)" },
-        { transform: "translateZ(" + z + "px)" + "rotateY(0deg)"  },
-      ],
-      {
-        // timing options
-        duration: 5000,
-        iterations: Infinity,
-      },
-    );
+    cubes[j].style.transform = "translateZ(" + z + "px)";
 
     tops[j].style.width = randomWidth + "px";
     tops[j].style.height = randomWidth + "px";
-    tops[j].style.transform = "rotateX(90deg) translateZ(calc(" + randomWidth + "px" + "/2*(-1)))";
+    tops[j].style.transform = "rotateX(90deg) translateZ(calc(" + randomWidth + "px" + "/2))";
 
     const item = tops[j].parentElement;
     item.style.height = randomWidth+ "px";
@@ -189,7 +166,10 @@ function mouseMoved(ev) {
 	rotY -= deltaX * -0.1;
 	rotX += deltaY * -0.1;
 
+
+
 	$("#container").css("transform", "rotateX( " + rotX + "deg) rotateY(" + rotY + "deg)");
+  console.log(rotX, rotY);
 }
 
 //HIDE CONTROLS
@@ -230,7 +210,7 @@ function showGrid() {
 
 //create NUMBER BUTTONS 
 
-for (var b = 0; b < 64 ; b++) {
+for (var b = 0; b < 27 ; b++) {
 const gridButton = document.createElement("button");
 gridButton.className = "gridButton";
 gridButton.id = "button" + b;
@@ -294,26 +274,25 @@ var sideNumber = 0;
 
 function sideChosen() {
    sideNumber = parseInt(this.id.substr(10));
-   
    for (var g = 0; g <sideButtons.length; g++) {
     sideButtons[g].classList.remove('active-button');
     sideButtons[sideNumber].classList.add('active-button');
-  }}
+  }
+}
+
+const topButton = document.createElement("button");
+topButton.className = "topButton";
+topButton.id = "topButton";
+topButton.innerText = "top";
+topButton.addEventListener("click", topChosen);
+document.getElementById("sidecontainer").appendChild(topButton);
 
 
-
-  // for (var s = 0; s<sideButtons.length; s++) {
-  //   const itemsides = cubes[gridNum].querySelectorAll("div>span");  
-  //   sideButtons[s].addEventListener('mouseover', () => {
-  //     itemsides[s].style.backgroundColor = 'lightblue';
-  //     });
-    
-  //     sideButtons[s].addEventListener('mouseout', () => {
-  //       itemsides[0].style.backgroundColor = 'lightgray';
-  //     });
-  //   }
-  
-  
+var topChoose = false;
+function topChosen() {
+  topButton.classList.add('active-button');
+  topChoose = true;
+}
 
 
 //text input
@@ -357,11 +336,16 @@ function photoOpChosen() {
 window.addEventListener('load', function () {
   document.querySelector('input[type="file"]').addEventListener('change', function () {
     if (this.files) {
-      console.log(this.files);
+      if (topChoose) {
+        tops[cubeChosen].style.backgroundImage="url("+ URL.createObjectURL(this.files[0]); + ")";
+        this.value = '';
+        topChoose=false;
+      } else {
       const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
       for (var b = 0; b<4; b++) {
       itemsides[sideNumber].style.backgroundImage="url("+ URL.createObjectURL(this.files[0]); + ")";
       this.value = '';
+      }
     }
   }
   });
@@ -394,7 +378,6 @@ function replaceColor(background) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
     for (var b = 0; b < 4; b++) {
     itemsides[sideNumber].style.background = background;
-    // itemsides[sideNumber].classList.add('glass-effect');
 
   };
 }

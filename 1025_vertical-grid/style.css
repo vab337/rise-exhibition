@@ -60,16 +60,17 @@ body {
   height: 900px;
   flex-flow: row wrap;
   row-gap: 0px;
-  top:100px;
-  left: 600px;
+  top:800px;
+  left: 1000px;
   transform-style: preserve-3d;
-  transform-origin: 50% 50% -300px;
+  /* transform-origin: 50% 50% -300px; */
+    transform-origin: 50% 0% 300px;
   cursor: pointer;
   /*    animation: rotatefield 20s linear infinite; */
 }
 
 .animator {
-    animation: rotatefield 10s linear infinite;
+    animation: risefield 7s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
 }
 
 
@@ -77,8 +78,21 @@ body {
   0%{
     transform: rotateX(0deg) rotateY(0deg) ;
   }
+
   100%{
     transform: rotateX(0deg) rotateY(-360deg);
+  }
+}
+
+@keyframes risefield {
+  0%{
+    transform: rotateX(90deg) rotateY(0deg) ;
+  }
+  30%{
+    transform: rotateX(90deg) rotateY(0deg) ;
+  }
+  100%{
+    transform: rotateX(150deg) rotateY(60deg);
   }
 }
 
