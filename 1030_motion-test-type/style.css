@@ -76,6 +76,10 @@ body {
   animation: risefield2 15s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
 }
 
+.animator2 {
+  animation: risefield3 10s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+}
+
 
 
 @keyframes rotatefield {
@@ -123,11 +127,16 @@ body {
 
 @keyframes risefield3 {
   0%{
-    transform: rotateX(-30deg) rotateY(0px) ;
+    transform: rotateX(0deg) rotateY(0deg) ;
+  }
+
+  30% {
+    transform: rotateX(-30deg) rotateY(0deg) ;
+
   }
 
   100%{
-    transform: rotateX(-30deg) rotateY(360deg) translateY(-300px) ;
+    transform: rotateX(-30deg) rotateY(360deg) ;
   }
 }
 
@@ -155,7 +164,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  color:white;
+  /* color:white; */
   transform-origin: bottom center;
   transform: rotateY(calc(90deg*var(--i))) translateZ(calc(var(--cubeW)/2));
   background-size: cover; /* Resize the background image to cover the entire container */
@@ -327,7 +336,7 @@ button:hover {
 
 .h4text {
   word-wrap: break-word;
-  color: white;
+  color: var(--light);
   font-size: 40px;
   line-height: 45px;
   /* font-size: 50px;

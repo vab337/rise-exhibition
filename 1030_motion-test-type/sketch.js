@@ -31,6 +31,7 @@ for (var i=0; i<27; i++) {
   top.addEventListener("click", itemClicked);
   top.id = "top" + i;
   cube.appendChild(top);
+  top.classList.add('h4text');
   // top.classList.add('glass-effect');
 
   
@@ -306,23 +307,23 @@ const textinput3 = document.getElementById("textinput3");
 var textInputs = document.getElementsByClassName("textInput");
 textinput1.addEventListener("change",replaceText);
 const textsubmit = document.getElementById("textsubmit");
+textsubmit.addEventListener('click', replaceText);
 
 
-
-textsubmit.addEventListener('click', () => {
-  if (topChoose) {
-    tops[cubeChosen].classList.add('h4text');
-    tops[cubeChosen].innerText = "A Global \n Visual Arts Competition \n and Exhibition";
-    topChoose=false;
-  } else {
-  for (var a = 0; a < cubes.length; a++) {
-    const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-    for (var b = 0; b < 4; b++) {
-      itemsides[sideNumber].innerText = "A Global \n Visual Arts Competition \n and Exhibition"
+// textsubmit.addEventListener('click', () => {
+//   if (topChoose) {
+//     tops[cubeChosen].classList.add('h4text');
+//     tops[cubeChosen].innerText = "A Global \n Visual Arts Competition \n and Exhibition";
+//     topChoose=false;
+//   } else {
+//   for (var a = 0; a < cubes.length; a++) {
+//     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+//     for (var b = 0; b < 4; b++) {
+//       itemsides[sideNumber].innerText = "A Global \n Visual Arts Competition \n and Exhibition"
    
-    };
-}}
-});
+//     };
+// }}
+// });
 
 
 
@@ -335,6 +336,56 @@ function replaceText() {
 }
 }
 
+
+var subtitleText = "A Global \n Visual Arts Competition \n and Exhibition"
+const expoSubtitle = document.getElementById('expo-subtitle');
+expoSubtitle.addEventListener('click', () => {
+  if (topChoose) {
+        tops[cubeChosen].innerText = subtitleText;
+        topChoose=false;
+      } else {
+      for (var a = 0; a < cubes.length; a++) {
+        const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+        for (var b = 0; b < 4; b++) {
+          itemsides[sideNumber].innerText = subtitleText;
+       
+        };
+    }}
+});
+
+
+var dateText = "6.12-10.12.23 \n 9am-9pm \n Public Exhibition"
+const date = document.getElementById('date');
+date.addEventListener('click', () => {
+  if (topChoose) {
+        tops[cubeChosen].innerText = dateText;
+        topChoose=false;
+      } else {
+      for (var a = 0; a < cubes.length; a++) {
+        const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+        for (var b = 0; b < 4; b++) {
+          itemsides[sideNumber].innerText = dateText;
+       
+        };
+    }}
+});
+
+
+var locationText = "The Ants Studio \n 03 Dong Tay. D2"
+const locationInfo = document.getElementById('location');
+locationInfo.addEventListener('click', () => {
+  if (topChoose) {
+        tops[cubeChosen].innerText = locationText;
+        topChoose=false;
+      } else {
+      for (var a = 0; a < cubes.length; a++) {
+        const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+        for (var b = 0; b < 4; b++) {
+          itemsides[sideNumber].innerText = locationText;
+       
+        };
+    }}
+});
 
 
 //IMG Input
@@ -408,10 +459,10 @@ function addColor() {
 
   for (var a = 0; a < cubes.length; a++) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-    // tops[cubeChosen].classList.add('glass-effect');
+    tops[cubeChosen].classList.add('glass-effect');
 
     for (var b = 0; b < 4; b++) {
-        // itemsides[b].classList.add('glass-effect');
+        itemsides[b].classList.add('glass-effect');
         itemsides[b].classList.add('h4text');
 
      };
