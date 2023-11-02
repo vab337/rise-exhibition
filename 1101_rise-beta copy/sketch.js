@@ -7,14 +7,14 @@ var cubeChosen = 0;
 
 
 
-var cols = 3;
-var rows = 3;
-var layers = 3;
+var cols = 4;
+var rows = 4;
+var layers = 5;
 var cubeW = 300;
 var cubesNumber = cols*rows*layers;
 
 
-for (var i=0; i<27; i++) {
+for (var i=0; i<cubesNumber; i++) {
   const cube = document.createElement("div");
   cube.className = "cube";
   cube.id = "item" + i;
@@ -391,7 +391,6 @@ function replaceColor(background) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
     for (var b = 0; b < 4; b++) {
     itemsides[sideNumber].style.background = background;
-
   };
 }
 }
@@ -420,3 +419,15 @@ document.getElementById('view2').addEventListener('click', () => {
   container.style.transform = '';
   container.classList.add('isoview');
 })
+
+//SCALING 
+const scale1 = document.getElementById('scale1');
+scale1.addEventListener('click', () => {
+  console.log('scaled');
+  const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+  itemsides[sideNumber].style.width = (parseFloat(getComputedStyle(itemsides[sideNumber]).width) * 2) + 'px'; // Double the width
+  itemsides[sideNumber].style.height = getComputedStyle(itemsides[sideNumber]).height; // Keep the height the same
+  itemsides[sideNumber].style.zIndex = "9999";
+  itemsides[sideNumber].classList.add('scaled-face');
+  itemsides[sideNumber].style.transform = "rotateY(calc(90deg*var(--i))) translateZ(calc(" + (cubeW+3) +"px" + "/2))";
+});
