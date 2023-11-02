@@ -1,5 +1,3 @@
-//COLOR OPTIONS ADDED
-
 var zindex = 10;
 const cubes = document.getElementsByClassName("cube");
 const container = document.getElementById("container");
@@ -7,11 +5,16 @@ const tops = document.getElementsByClassName("top");
 const sides = document.getElementsByClassName("side");
 var cubeChosen = 0; 
 
-const artistArr = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16",
-"17", "18","19","20","21","22","23","24","25","26","27"];
 
 
-for (var i=0; i<1; i++) {
+var cols = 3;
+var rows = 3;
+var layers = 3;
+var cubeW = 300;
+var cubesNumber = cols*rows*layers;
+
+
+for (var i=0; i<27; i++) {
   const cube = document.createElement("div");
   cube.className = "cube";
   cube.id = "item" + i;
@@ -28,124 +31,79 @@ for (var i=0; i<1; i++) {
   //create top side
   const top = document.createElement("div");
   top.className = "top";
-  top.addEventListener("click", itemClicked);
   top.id = "top" + i;
   cube.appendChild(top);
-  top.classList.add('h4text');
-  // top.classList.add('glass-effect');
-
-  
 
   //create sides
   for(var j=0; j<4;j++) {
     const side = document.createElement("span");
     side.className = "side";
-    // side.classList.add('glass-effect');
 
     sidescontainer.appendChild(side);
     side.setAttribute("style", "--i:"+j);
   }
 }
 
+
+//CREATE GRID & POSITION CUBES
+var gridArr = []
+
+for (var i=0; i<cols; i++) {
+  for(var j=0; j<rows; j++) {
+    for (var k=0; k<layers; k++) {
+      var xpos = i*cubeW;
+      var ypos = j*cubeW;
+      var zpos = k*(cubeW);
+      var index = i + j*cols + k*cols*rows; 
+      gridArr[index] = new Array(xpos,zpos,ypos);
+    }
+  }
+}
+
+for (var j=0; j<cubes.length; j++) {
+    
+    var x = Math.floor(gridArr[j][0]);
+    var y = Math.floor(gridArr[j][1]);
+    var z = Math.floor(gridArr[j][2]);
+
+    cubes[j].style.width = cubeW + "px";
+    cubes[j].style.height = cubeW + "px";
+    cubes[j].style.left = x  + "px";
+    cubes[j].style.top = y  + "px";
+    cubes[j].style.transform = "translateZ(" + z + "px)";
+
+    tops[j].style.width = cubeW + "px";
+    tops[j].style.height = cubeW + "px";
+    tops[j].style.transform = "rotateX(90deg) translateZ(calc(" + cubeW + "px" + "/2))";
+
+    const item = tops[j].parentElement;
+    item.style.height = cubeW + "px";
+    const itemsides = item.querySelectorAll("div>span");
+    for (var i=0; i<itemsides.length; i++) {
+      itemsides[i].style.transform = "rotateY(calc(90deg*var(--i))) translateZ(calc(" + (cubeW) +"px" + "/2))";
+    }
+  }
+//END OF CREATING GRID 
+
 // ROTATE
 document.getElementById("rotate").addEventListener("click", rotateScene);
 var isRotating = false;
 
 function rotateScene() {
-  container.classList = [];  
+  if(isRotating == false) {
+  container.classList.add("animator");
+  isRotating = true;
+} else {
+  container.classList.remove("animator");
+  isRotating = false;
+}
 }
 
-// function rotateScene() {
-//   if(isRotating == false) {
-//   container.classList.add("animator");
-//   isRotating = true;
-// } else {
-//   container.classList.remove("animator");
-//   isRotating = false;
-// }
-// }
-
-
-
-//CREATE GRID & POSITION CUBES
-var cols = 3;
-var rows = 3;
-var layers = 3;
-var gridArr = []
-
-var w = 500;
-var h = 500;
-for (var i=0; i<cols; i++) {
-  for(var j=0; j<rows; j++) {
-    for (var k=0; k<layers; k++) {
-      var xpos = i*w;
-      var ypos = j*h;
-      var zpos = k*(-300);
-      var index = i + j*cols + k*cols*rows; 
-      gridArr[index] = new Array(xpos,ypos,zpos);
-    }
-  }
-}
-
-  for (var j=0; j<cubes.length; j++) {
-    var randomWidth = 500;
-    var x = Math.floor(gridArr[j][0]);
-    var y = Math.floor(gridArr[j][1]);
-    var z = Math.floor(gridArr[j][2]);
-
-    cubes[j].style.width = randomWidth + "px";
-    cubes[j].style.height = randomWidth + "px";
-    cubes[j].style.left = x  + "px";
-    cubes[j].style.top = y  + "px";
-    cubes[j].style.transform = "translateZ(" + z + "px)";
-
-    tops[j].style.width = randomWidth + "px";
-    tops[j].style.height = randomWidth + "px";
-    tops[j].style.transform = "rotateX(90deg) translateZ(calc(" + randomWidth + "px" + "/2))";
-
-    const item = tops[j].parentElement;
-    item.style.height = randomWidth+ "px";
-    const itemsides = item.querySelectorAll("div>span");
-    for (var i=0; i<itemsides.length; i++) {
-      itemsides[i].style.transform = "rotateY(calc(90deg*var(--i))) translateZ(calc(" + (randomWidth) +"px" + "/2))";
-    }
-  }
-
-
-  //END OF CREATING GRID 
-
-
-  for (var j=0; j<cubes.length; j+=2) {
-    const sides = cubes[j].querySelectorAll("div>span");
-    for (var i=0; i<sides.length; i++) {
-      // sides[i].style.background = "var(--green)";
-
-    }
-  }
-
-
-
-container.addEventListener("click", itemClicked);
-
-
-function itemClicked() {
-  for(var i=0; i<tops.length; i++) {
-          const item = tops[i].parentElement;
-          const itemsides = item.querySelectorAll("div>span");
-          item.style.zIndex = zindex;
-          zindex++;
-          for (var j=0; j<itemsides.length; j++) {
-            itemsides[j].style.height="100%";
-            }
-            var itemHeight = item.offsetHeight;
-            tops[i].style.transform = "rotateX(90deg) translateZ(calc(" + itemHeight + "px" + "/2))";
-          } 
-  }
 
 
 
 
-//orbit control
+//ORBIT CONTROL
 
 var lastMouseX = 0,
 	lastMouseY = 0;
@@ -170,8 +128,6 @@ function mouseMoved(ev) {
 
 	rotY -= deltaX * -0.1;
 	rotX += deltaY * -0.1;
-
-
 
 	$("#container").css("transform", "rotateX( " + rotX + "deg) rotateY(" + rotY + "deg)");
   console.log(rotX, rotY);
@@ -215,20 +171,47 @@ function showGrid() {
 
 //create NUMBER BUTTONS 
 
-for (var b = 0; b < 27 ; b++) {
-const gridButton = document.createElement("button");
-gridButton.className = "gridButton";
-gridButton.id = "button" + b;
-gridButton.innerText = b;
-gridButton.addEventListener("click", gridChosen);
-gridButton.addEventListener("mouseover", gridHover);
-gridButton.addEventListener("mouseout", gridHoverEnd);
+//create buttons container
+for (var b = 0; b < layers ; b++) {
+  const buttonGridContainer = document.createElement("div");
+  buttonGridContainer.classList.add('button-grid-container');
+  buttonGridContainer.id = "buttonGridContainer" + b;
+  // buttonGridContainer.textContent = "Layer "+ (b+1);
+  const allButtonsContainer = document.getElementById('allButtons');
+  allButtonsContainer.appendChild(buttonGridContainer);
+}
 
-document.getElementById("gridbuttoncontainer").appendChild(gridButton);
+// Function to create a button element with a given text
+function createButton(text) {
+  const button = document.createElement('button');
+  button.textContent = text;
+  return button;
+}
+
+// Create 80 buttons and distribute them into 4 divs
+const buttonCount = cubesNumber;
+const divCount = layers;
+const buttonsPerDiv = buttonCount / divCount;
+
+for (let i = 0; i < buttonCount; i++) {
+  const button = createButton(i.toString());
+  const divIndex = Math.floor(i / buttonsPerDiv); // Distribute buttons equally to 4 divs
+  const div = document.getElementById('buttonGridContainer'+divIndex);
+  div.appendChild(button);
+
+  button.id = "button" + i;
+  button.classList.add("gridButton");
 }
 
 const gridButtons = document.getElementsByClassName("gridButton");
 var gridNum = 0;
+
+for (let i = 0; i < gridButtons.length; i++) {
+  gridButtons[i].addEventListener("click", gridChosen);
+  gridButtons[i].addEventListener("mouseover", gridHover);
+  gridButtons[i].addEventListener("mouseout", gridHoverEnd);
+} 
+
 
 //BUTTONS EVENT
 function gridChosen() {
@@ -239,7 +222,7 @@ function gridChosen() {
     gridButtons[g].classList.remove('active-button');
     gridButtons[gridNum].classList.add('active-button');
   }
-  addColor();
+  randomReplaceColor();
 };
 
 function gridHover() {
@@ -271,6 +254,8 @@ for (var t = 0; t < 4 ; t++) {
   sideButton.id = "sideButton" + t;
   sideButton.innerText = "side" + t ;
   sideButton.addEventListener("click", sideChosen);
+  sideButton.addEventListener("mouseover", sideHover);
+  sideButton.addEventListener("mouseout", sideHoverEnd);
   document.getElementById("sidecontainer").appendChild(sideButton);
   }
 const sideButtons = document.getElementsByClassName("sideButton");
@@ -282,6 +267,28 @@ function sideChosen() {
    for (var g = 0; g <sideButtons.length; g++) {
     sideButtons[g].classList.remove('active-button');
     sideButtons[sideNumber].classList.add('active-button');
+  }
+}
+
+function sideHover() {
+  sideNumber = parseInt(this.id.substr(10));
+  for (var a = 0; a < cubes.length; a++) {
+  const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+    for (var b = 0; b <4; b++) {
+      itemsides[sideNumber].classList.add('grid-hover');
+    }
+  }
+}
+
+
+
+function sideHoverEnd() {
+  sideNumber = parseInt(this.id.substr(10));
+  for (var a = 0; a < cubes.length; a++) {
+  const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+    for (var b = 0; b <4; b++) {
+      itemsides[sideNumber].classList.remove('grid-hover');
+    }
   }
 }
 
@@ -307,23 +314,6 @@ const textinput3 = document.getElementById("textinput3");
 var textInputs = document.getElementsByClassName("textInput");
 textinput1.addEventListener("change",replaceText);
 const textsubmit = document.getElementById("textsubmit");
-textsubmit.addEventListener('click', replaceText);
-
-
-// textsubmit.addEventListener('click', () => {
-//   if (topChoose) {
-//     tops[cubeChosen].classList.add('h4text');
-//     tops[cubeChosen].innerText = "A Global \n Visual Arts Competition \n and Exhibition";
-//     topChoose=false;
-//   } else {
-//   for (var a = 0; a < cubes.length; a++) {
-//     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-//     for (var b = 0; b < 4; b++) {
-//       itemsides[sideNumber].innerText = "A Global \n Visual Arts Competition \n and Exhibition"
-   
-//     };
-// }}
-// });
 
 
 
@@ -331,63 +321,12 @@ function replaceText() {
   for (var a = 0; a < cubes.length; a++) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
     for (var b = 0; b < 4; b++) {
+    itemsides[sideNumber].classList.add("header");
     itemsides[sideNumber].innerText = textinput1.value;
   };
 }
 }
 
-
-var subtitleText = "A Global \n Visual Arts Competition \n and Exhibition"
-const expoSubtitle = document.getElementById('expo-subtitle');
-expoSubtitle.addEventListener('click', () => {
-  if (topChoose) {
-        // tops[cubeChosen].classList.add('subtitle-text');
-        tops[cubeChosen].innerText = subtitleText;
-        topChoose=false;
-      } else {
-      for (var a = 0; a < cubes.length; a++) {
-        const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-        for (var b = 0; b < 4; b++) {
-          // itemsides[sideNumber].classList.add('subtitle-text');
-          itemsides[sideNumber].innerText = subtitleText;
-       
-        };
-    }}
-});
-
-
-var dateText = "6.12-10.12.23 \n 9am-9pm \n Public Exhibition"
-const date = document.getElementById('date');
-date.addEventListener('click', () => {
-  if (topChoose) {
-        tops[cubeChosen].innerText = dateText;
-        topChoose=false;
-      } else {
-      for (var a = 0; a < cubes.length; a++) {
-        const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-        for (var b = 0; b < 4; b++) {
-          itemsides[sideNumber].innerText = dateText;
-       
-        };
-    }}
-});
-
-
-var locationText = "The Ants Studio \n 03 Dong Tay. D2"
-const locationInfo = document.getElementById('location');
-locationInfo.addEventListener('click', () => {
-  if (topChoose) {
-        tops[cubeChosen].innerText = locationText;
-        topChoose=false;
-      } else {
-      for (var a = 0; a < cubes.length; a++) {
-        const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-        for (var b = 0; b < 4; b++) {
-          itemsides[sideNumber].innerText = locationText;
-       
-        };
-    }}
-});
 
 
 //IMG Input
@@ -416,7 +355,6 @@ window.addEventListener('load', function () {
       } else {
       const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
       for (var b = 0; b<4; b++) {
-      itemsides[sideNumber].innerText = "";
       itemsides[sideNumber].style.backgroundImage="url("+ URL.createObjectURL(this.files[0]); + ")";
       this.value = '';
       }
@@ -457,33 +395,13 @@ function replaceColor(background) {
 }
 }
 
-function addColor() {
-
+function randomReplaceColor() {
   for (var a = 0; a < cubes.length; a++) {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
     tops[cubeChosen].classList.add('glass-effect');
 
     for (var b = 0; b < 4; b++) {
         itemsides[b].classList.add('glass-effect');
-        itemsides[b].classList.add('h4text');
-
-     };
+  };
 }
-}
-
-//ROTATE MODES
-const rotate0 = document.getElementById("rotate0");
-const rotate1 = document.getElementById("rotate1");
-const rotate2 = document.getElementById("rotate2");
-var rotateModes = document.getElementsByClassName('rotateMode');
-
-for (var r = 0; r<rotateModes.length; r++) {
-  rotateModes[r].addEventListener('click', chooseRotateMode(r));
-}
-
-function chooseRotateMode(index) {
-  return function() {
-  container.classList = [];
-  container.classList.add('animator' + index);
-  }
 }

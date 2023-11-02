@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: Light;
-  src: url(../assets/TT\ Hoves\ Pro\ Trial\ Light.ttf);
+  src: url(assets/AeonikTRIAL-Light.otf);
 }
 
 @font-face {
@@ -60,39 +60,22 @@ body {
   height: 900px;
   flex-flow: row wrap;
   row-gap: 0px;
-  top: 600px;
-  left: 800px;
+  top: 300px;
+  left: 1000px;
   transform-style: preserve-3d;
+  /* transform-origin: 50% 50% -300px; */
   transform-origin: 50% 0% -300px;
   cursor: pointer;
-  /* animation: risefield 15s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite; */
+  animation: topdown 10s linear infinite;
+
 }
 
-.animator0 {
-    animation: risefield 15s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
-}
-
-.animator1 {
-  animation: risefield2 15s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
-}
-
-.animator2 {
-  animation: risefield3 15s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+.animator {
+    animation: rotatefield 20s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
 }
 
 
-
-@keyframes rotatefield {
-  0%{
-    transform: rotateX(-30deg) rotateY(0deg) ;
-  }
-
-  100%{
-    transform: rotateX(-30deg) rotateY(0deg);
-  }
-}
-
-@keyframes risefield {
+@keyframes topdown {
   0%{
     transform: rotateX(-90deg) rotateY(0deg) ;
   }
@@ -101,44 +84,19 @@ body {
     transform: rotateX(-90deg) rotateY(0deg) translateY(0px) ;
   }
 
-  100%{
+  50%{
     transform: rotateX(-30deg) rotateY(-45deg) translateY(-300px) ;
   }
-}
 
-
-@keyframes risefield2 {
-  0%{
-    transform: rotateX(-90deg) rotateY(0deg) ;
+  80%{
+    transform: rotateX(-30deg) rotateY(-45deg) translateY(-300px) ;
   }
 
-  10%{
+  100%{
     transform: rotateX(-90deg) rotateY(0deg) translateY(0px) ;
   }
-
-  40%{
-    transform: rotateX(-30deg) rotateY(-45deg) translateY(-300px) ;
-  }
-
- 100%{
-    transform: rotateX(-30deg) rotateY(200deg) translateY(-300px) ;
-  }
 }
 
-@keyframes risefield3 {
-  0%{
-    transform: rotateX(0deg) rotateY(0deg) ;
-  }
-
-  30% {
-    transform: rotateX(-30deg) rotateY(0deg) ;
-
-  }
-
-  100%{
-    transform: rotateX(-30deg) rotateY(-360deg) ;
-  }
-}
 
 
 .cube {
@@ -164,13 +122,11 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  padding: 20px;
-  /* color:white; */
+  color:white;
   transform-origin: bottom center;
   transform: rotateY(calc(90deg*var(--i))) translateZ(calc(var(--cubeW)/2));
   background-size: cover; /* Resize the background image to cover the entire container */
 }
-
 
 
 .top {
@@ -180,11 +136,19 @@ body {
   left: 0;
   width:0;
   height: 0;
-  padding: 20px;
   transition: background 1s ease, transform 1s cubic-bezier(0.075, 0.82, 0.165, 1) ;
   cursor: pointer;
 
 }
+
+
+.glass-effect {
+  background-color: #041d30;
+  box-shadow: inset 0 0 50px #bbc7d6eb;
+  border-radius: 10px;
+  }
+  
+  
 
 
 
@@ -259,6 +223,8 @@ textarea {
   cursor: pointer;
 }
 
+
+
 button {
 /* display: flex; */
 padding: 10px 10px;
@@ -283,10 +249,31 @@ button:hover {
   color: var(--blue);
 }
 
+
+.button-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 10px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  background: rgba(173, 188, 206, 0.063);
+
+  color:white;
+}
+
+.gridButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
 #generalcontrols {
   position: absolute;
-  bottom:0;
-  left:0;
+  top:0;
+  right:0;
 }
 
 #generalcontrols > button {
@@ -332,28 +319,19 @@ button:hover {
   font-size: 70px;
   line-height: 60px;
   letter-spacing: −5px; 
+
+
 }
 
 .h4text {
   word-wrap: break-word;
-  color: var(--white);
-  font-size: 40px;
-  line-height: 40px;
+  font-size: 70px;
+  line-height: 60px;
   /* font-size: 50px;
   line-height: 40px; */
-  letter-spacing: −10px; 
-}
+  letter-spacing: −5px; 
 
-.subtitle-text {
-  word-wrap: break-word;
-  color: var(--light);
-  font-size: 40px;
-  line-height: 40px;
-  /* font-size: 50px;
-  line-height: 40px; */
-  letter-spacing: −10px; 
 }
-
 
 
 
@@ -388,15 +366,5 @@ button:hover {
 
 #color5 {
   background: #00000000;
-}
-
-.glass-effect {
-/* background: radial-gradient(#041D30 0%, #BBC7D6 70%, #ffffff00 100%); */
-background-color: #041d30;
-box-shadow: inset 0 0 30px #bbc7d6eb;
-border-radius: 10px;
-/* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
-/* backdrop-filter: blur(3px); */
-/* border: 1px solid rgba(255, 255, 255, 0.21); */
 }
 
