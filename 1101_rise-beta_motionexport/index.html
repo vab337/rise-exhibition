@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Motion test</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="assets/jquery-3.7.1.min.js"></script>
+    <script src="../lib/anime.js"></script>
+
+
+
+  </head>
+
+  <body>
+
+    <div id="container" class="animator">
+    </div>
+    <!-- <input type="text" id="h1input" placeholder="h1 text">  -->
+  <div class="inputscontainer" id="inputscontainer">
+    <div id="appTitle">4x4x5 grid</div>
+
+    <div id="allButtons">
+      <div class="sectionTitle">Choose cube</div>
+    </div>
+
+    <div id="sidecontainer">
+      <div class="sectionTitle">Choose side</div>
+    </div>
+
+    <div class="scaling">
+      <div class="sectionTitle">Rescale side</div>
+
+      <button id="scale1">1x2</button>
+      <button id="scale2">2x2</button>
+    </div>
+
+    <div id="photoinputcontainer">
+      <div class="sectionTitle">Input texture</div>
+
+      <input type='file' id="imgInput"/>
+     </div>
+
+    <button id="clear"> Clear texture </button>   
+
+<br>
+
+
+  </div>
+  <div id="generalcontrols">
+  <button id="rotate" class="togglebtn">Animation</button>
+  <button id="showgrid" class="togglebtn">Show grid</button>
+    <button id="view1">Top down View</button>
+    <button id="view2">Isometric view</button>
+    <button id="hidecontrols" class="togglebtn">Hide controls</button>
+
+</div>
+    <script src="sketch.js"></script>
+    <script src="sketch-anime.js"></script>
+
+  </body>
+</html>
