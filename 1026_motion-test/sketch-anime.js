@@ -6,22 +6,23 @@ var t1 = anime.timeline({
   });
   
   // Add children
-//   t1
-//   .add({
-//     targets: '.cube',
-//     keyframes: [
-//         {rotateY: 270},
-//         {rotateY: 0},
-//       ],
-//   });
+  t1
+  .add({
+    targets: '.cube',
+    
+    keyframes: [
+        {rotateY: 270},
+        {rotateY: 0},
+      ],
+  });
 
 
 //   rise motion
-    t1
-  .add({
-    targets: '.cube',
-    translateY: [1000,0]
-  });
+  //   t1
+  // .add({
+  //   targets: '.cube',
+  //   translateY: [1000,0]
+  // });
   
 
 
