@@ -1,0 +1,370 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+@font-face {
+  font-family: Light;
+  src: url(assets/AeonikTRIAL-Light.otf);
+}
+
+@font-face {
+  font-family: Regular;
+  src: url(assets/Aeonik-Regular.ttf);
+}
+
+@font-face {
+  font-family: Monopol;
+  src: url(assets/Monopol-TRIAL.otf);
+}
+
+:root {
+  --cubeW: 100px;
+  --halfCubeW: 150px;
+  --cubeH: 100px;
+  --green: #16FF89;
+  --yellow: #FFFF42;
+  --palegren: #E5FFD5;
+  --gradient3: linear-gradient(#16FF89 0%,#E5FFD5,  #FFFF42 95%); 
+  --greengrad:  linear-gradient(#16FF89,#fff); 
+  --yellowgrad:  linear-gradient(#FFFF42,#fff); 
+  --blue: #041D30;
+  --light: #BBC7D6;
+  --white: #fff;
+  --cpgradient: linear-gradient(#16FF89,  #FFFF42); 
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--blue);
+  /* background: linear-gradient(#16FF89 0%,#fff 5%,#fff 80%, #16FF89 95%);  */
+  font-family: Light;
+  user-select: none; /* Standard syntax */
+
+}
+
+#appTitle {
+  font-family: Regular;
+  color: var(--light);
+  font-size: 28px;
+}
+
+.sectionTitle {
+  border-top: 1px solid white;
+  padding-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 20px;
+}
+
+#container {
+  display: block;
+  position: absolute;
+  /* width: 900px;
+  height: 900px; */
+  flex-flow: row wrap;
+  row-gap: 0px;
+  top: 200px;
+  left: 35%;
+  transform-style: preserve-3d;
+  /* transform-origin: 50% 50% -300px; */
+  transform-origin: 0% 0% 0px;
+  /* transform-origin: 50% 0% -500px; */
+}
+
+
+  .animator {
+    /* animation: risefield 10s cubic-bezier(0.075, 0.82, 0.165, 1) infinite; */
+    /* animation: risefield 5s cubic-bezier(0.785, 0.135, 0.150, 0.860) infinite alternate; */ 
+    animation: spin 10s cubic-bezier(0.405, 0.005, 0.000, 1.000) infinite; 
+  }
+
+.topdownview {
+  transform: rotateX(-90deg) rotateY(0deg) translateY(0px);
+}
+
+.isoview {
+  transform: rotateX(-30deg) rotateY(-30deg) translate3d(600px,-300px,0px);
+}
+
+
+ @keyframes risefield {
+    0%{
+      transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
+    }
+
+    20%{
+      transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
+    }
+  
+    100%{
+      transform: rotateX(-30deg) rotateY(-30deg) translate3d(370px,-200px,0px) scale3d(0.8,0.8,0.8);
+    }
+    } 
+
+  
+ @keyframes spin {
+    0%{
+      transform: rotateX(-90deg) rotateY(0deg) translate3d(50px,-20px,0px) scale3d(1,1,1) ;
+    }
+
+    30%{
+      transform: rotateX(0deg) rotateY(0deg) translate3d(50px, 0px,0px) scale3d(1,1,1) ;
+    }
+
+    50%{
+      transform: rotateX(-30deg) rotateY(-30deg) translate3d(320px, -100px,0px) scale3d(0.8,0.8,0.8);
+    }
+
+
+
+    100%{
+      transform: rotateX(-90deg) rotateY(0deg) translate3d(50px,-20px,0px) scale3d(1,1,1) ;
+    }
+    } 
+
+
+.cube {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+
+.cube div {
+  position: absolute;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+
+.cube div span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color:white;
+  transform-origin: bottom center;
+  transform: rotateY(calc(90deg*var(--i))) translateZ(calc(var(--cubeW)/2));
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+
+.top {
+  position: absolute;
+  visibility: visible;
+  top: 0;
+  left: 0;
+  width:0;
+  height: 0;
+  cursor: pointer;
+  padding: 10px;
+  box-shadow: none;
+  border-radius: 10px;
+  background-size: cover; /* Scale the background image to cover the entire container */
+  background-repeat: no-repeat;
+}
+
+
+
+.glass-effect {
+  background-color: #041d30;
+  box-shadow: inset 0 0 20px #bbc7d6eb;
+  border-radius: 10px;
+  }
+   
+
+
+input {
+  position: relative;
+  bottom: 0;
+  font-size: 14px;
+}
+
+.inputscontainer {
+  position: absolute;
+  padding: 20px;
+  width: 20vw;
+  top: 0 ; 
+  left: 0;
+  font-size: 15px;
+  border-radius: 12px;
+  background: #1d1f2adb
+}
+
+.inputscontainer > div {
+  margin-top: 20px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  border: #fff solid 1px;
+  background: rgba(0,0,0,0.2);
+
+  outline: none;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%; 
+  background: #fff;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+
+
+button {
+/* display: flex; */
+padding: 10px 10px;
+margin-left: 10px;
+margin-right: 10px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+align-self: stretch;
+border-radius: 100px;
+border: 0px solid var(--light);
+background: rgba(150, 150, 150, 0.2);
+color: var(--light);
+cursor: pointer;
+font-size: 18px;
+}
+
+button:hover {
+  background: #bbc7d68a;
+  transition: 0.5s ease;
+}
+
+.active-button {
+  background: var(--light);
+  color: var(--blue);
+}
+
+
+.button-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  background: rgba(173, 188, 206, 0.063);
+
+  color:white;
+}
+
+.gridButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#generalcontrols {
+  position: absolute;
+  top:0;
+  right:0;
+  padding: 20px;
+  width: 25vw;
+  font-size: 15px;
+  border-radius: 12px;
+  background: #1d1f2adb
+}
+
+
+#generalcontrols > button {
+  cursor: pointer;
+}
+
+.controlshidden {
+  visibility: hidden;
+}
+
+.gridShown {
+  border: 1px solid white;
+}
+
+.grid-hover {
+  background-color: #bbc7d68a;
+} 
+
+.header {
+  padding: 10px;
+  font-family: Monopol;
+  font-size: 23rem;
+}
+
+.h1text {
+  word-wrap: break-word;
+  font-size: 150px;
+  line-height: 60px;
+  letter-spacing: −5px; 
+}
+
+
+.h2text {
+  word-wrap: break-word;
+  font-size: 100px;
+  line-height: 60px;
+  letter-spacing: −5px;
+
+}
+
+.h3text {
+  word-wrap: break-word;
+  font-size: 70px;
+  line-height: 60px;
+  letter-spacing: −5px; 
+
+
+}
+
+.h4text {
+  word-wrap: break-word;
+  font-size: 70px;
+  line-height: 60px;
+  /* font-size: 50px;
+  line-height: 40px; */
+  letter-spacing: −5px; 
+
+}
+
+
+
+.scaled-face {
+  background: var(--blue);
+  box-shadow: none;
+  border-radius: 10px;
+
+}
+
+#clear {
+  margin-top:20px;
+}
