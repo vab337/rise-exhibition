@@ -71,8 +71,8 @@ body {
   height: 900px; */
   flex-flow: row wrap;
   row-gap: 0px;
-  top: 200px;
-  left: 30%;
+  top: 400px;
+  left: 35%;
   transform-style: preserve-3d;
   /* transform-origin: 50% 50% -300px; */
   transform-origin: 0% 0% 0px;
@@ -91,7 +91,7 @@ body {
 }
 
 .isoview {
-  transform: rotateX(-30deg) rotateY(-30deg) translate3d(600px,-300px,0px);
+  transform: rotateX(-30deg) rotateY(-30deg) translate3d(-100px,-300px,-200px);
 }
 
 
@@ -115,14 +115,13 @@ body {
       transform: rotateX(-90deg) rotateY(0deg) translate3d(50px,-20px,0px) scale3d(1,1,1) ;
     }
 
-    30%{
-      transform: rotateX(0deg) rotateY(0deg) translate3d(50px, 0px,0px) scale3d(1,1,1) ;
+
+
+    50%{
+      transform: rotateX(-30deg) rotateY(-30deg) translate3d(400px, -400px,0px) scale3d(0.8,0.8,0.8);
     }
 
-    70%{
-      transform: rotateX(-30deg) rotateY(-30deg) translate3d(420px, -100px,0px) scale3d(0.8,0.8,0.8);
-    }
-  
+
     100%{
       transform: rotateX(-90deg) rotateY(0deg) translate3d(50px,-20px,0px) scale3d(1,1,1) ;
     }
@@ -268,7 +267,7 @@ button:hover {
 
 .button-grid-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(5, 1fr);
   gap: 10px;
   padding: 10px;

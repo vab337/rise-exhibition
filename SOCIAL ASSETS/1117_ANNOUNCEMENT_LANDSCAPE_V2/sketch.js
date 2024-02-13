@@ -3,13 +3,12 @@ const container = document.getElementById("container");
 const tops = document.getElementsByClassName("top");
 const sides = document.getElementsByClassName("side");
 var cubeChosen = 0; 
-var sideNumber = 0;
 
 
 
-var cols = 6;
-var rows = 10;
-var layers = 1;
+var cols = 10;
+var rows = 5;
+var layers = 4;
 var cubeW = 200;
 var cubesNumber = cols*rows*layers;
 
@@ -40,7 +39,7 @@ for (var i=0; i<cubesNumber; i++) {
   for(var j=0; j<4;j++) {
     const side = document.createElement("span");
     side.className = "side";
-    // side.classList.add('glass-effect');
+
     sidescontainer.appendChild(side);
     side.setAttribute("style", "--i:"+j);
   }
@@ -57,7 +56,7 @@ for (var i=0; i<cols; i++) {
       var ypos = j*cubeW;
       var zpos = k*(cubeW);
       var index = i + j*cols + k*cols*rows; 
-      gridArr[index] = new Array(xpos,ypos,zpos);
+      gridArr[index] = new Array(xpos,zpos,ypos);
     }
   }
 }
@@ -203,7 +202,6 @@ for (let i = 0; i < gridButtons.length; i++) {
 function gridChosen() {
   gridNum = parseInt(this.id.substr(6));
   cubeChosen = gridNum;
-  sideNumber = 0;
     for (var g = 0; g <gridButtons.length; g++) {
     gridButtons[g].classList.remove('active-button');
     gridButtons[gridNum].classList.add('active-button');
@@ -246,7 +244,7 @@ for (var t = 0; t < 4 ; t++) {
   }
 const sideButtons = document.getElementsByClassName("sideButton");
 
-
+var sideNumber = 0;
 
 function sideChosen() {
    sideNumber = parseInt(this.id.substr(10));
@@ -304,19 +302,16 @@ window.addEventListener('load', function () {
   document.querySelector('input[type="file"]').addEventListener('change', function () {
     if (this.files) {
       if (topChoose) {
+        tops[cubeChosen].classList.remove('glass-effect');
         tops[cubeChosen].style.backgroundImage="url("+ URL.createObjectURL(this.files[0]); + ")";
         this.value = '';
         // topChoose=false;
       } else {
       const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-      itemsides[0].style.backgroundImage="url("+ URL.createObjectURL(this.files[0]); + ")";
-      itemsides[0].classList.remove('glass-effect');
+      for (var b = 0; b<4; b++) {
+      itemsides[sideNumber].style.backgroundImage="url("+ URL.createObjectURL(this.files[0]); + ")";
       this.value = '';
-      // for (var b = 0; b<4; b++) {
-      // itemsides[sideNumber].style.backgroundImage="url("+ URL.createObjectURL(this.files[0]); + ")";
-      // itemsides[sideNumber].classList.remove('glass-effect');
-      // this.value = '';
-      // }
+      }
     }
   }
   });
@@ -327,6 +322,7 @@ window.addEventListener('load', function () {
 
 function addColortoSides() {
     const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+    tops[cubeChosen].classList.add('glass-effect');
     for (var b = 0; b < 4; b++) {
         itemsides[b].classList.add('glass-effect');
   };
@@ -335,6 +331,8 @@ function addColortoSides() {
 document.getElementById('clear').addEventListener('click',clearCube);
 function clearCube() {
   tops[cubeChosen].style.backgroundImage = 'none';
+  tops[cubeChosen].classList.remove('glass-effect');
+
   const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
     for (var b = 0; b < 4; b++) {
         itemsides[b].classList.remove('glass-effect');
@@ -349,7 +347,7 @@ function clearCube() {
 document.getElementById('view1').addEventListener('click', () => {
   container.classList = [];
   container.style.transform = '';
-  container.classList.add('frontview');
+  container.classList.add('topdownview');
 })
 
 document.getElementById('view2').addEventListener('click', () => {

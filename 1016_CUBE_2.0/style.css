@@ -55,8 +55,8 @@ body {
   height: 900px;
   flex-flow: row wrap;
   row-gap: 0px;
-  top:100px;
-  left: 300px;
+  top:200px;
+  left: 900px;
   transform-style: preserve-3d;
   transform-origin: 50% 50% -300px;
     /* animation: rotatefield 20s linear infinite; */
