@@ -15,8 +15,14 @@
   src: url(assets/Aeonik-Regular.ttf);
 }
 
+@font-face {
+  font-family: Monopol;
+  src: url(assets/Monopol-TRIAL.otf);
+}
+
 :root {
   --cubeW: 100px;
+  --halfCubeW: 150px;
   --cubeH: 100px;
   --green: #16FF89;
   --yellow: #FFFF42;
@@ -36,7 +42,7 @@ body {
   text-align: center;
   align-items: center;
   min-height: 100vh;
-  background-color: var(--blue);
+  background: var(--blue);
   /* background: linear-gradient(#16FF89 0%,#fff 5%,#fff 80%, #16FF89 95%);  */
   font-family: Light;
   user-select: none; /* Standard syntax */
@@ -46,50 +52,92 @@ body {
 #appTitle {
   font-family: Regular;
   color: var(--light);
+  font-size: 28px;
+}
+
+.sectionTitle {
+  border-top: 1px solid white;
+  padding-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 20px;
 }
 
 #container {
   display: block;
   position: absolute;
-  width: 900px;
-  height: 900px;
+  /* width: 900px;
+  height: 900px; */
   flex-flow: row wrap;
   row-gap: 0px;
-  top:200px;
-  left: 900px;
+  top: 200px;
+  left: 35%;
   transform-style: preserve-3d;
-  transform-origin: 50% 50% -300px;
-  cursor: pointer;
-  /*    animation: rotatefield 20s linear infinite; */
-}
-
-.animator {
-    animation: rotatefield 20s linear infinite;
+  /* transform-origin: 50% 50% -300px; */
+  transform-origin: 0% 0% 0px;
+  /* transform-origin: 50% 0% -500px; */
 }
 
 
-@keyframes rotatefield {
-  0%{
-    transform: rotateX(-30deg) rotateY(0deg) ;
+  .animator {
+    /* animation: risefield 10s cubic-bezier(0.075, 0.82, 0.165, 1) infinite; */
+    /* animation: risefield 5s cubic-bezier(0.785, 0.135, 0.150, 0.860) infinite alternate; */ 
+    animation: spin 10s cubic-bezier(0.405, 0.005, 0.000, 1.000) infinite; 
   }
-  100%{
-    transform: rotateX(-30deg) rotateY(360deg);
-  }
+
+.topdownview {
+  transform: rotateX(-90deg) rotateY(0deg) translateY(0px);
 }
+
+.isoview {
+  transform: rotateX(-30deg) rotateY(-30deg) translate3d(600px,-300px,0px);
+}
+
+
+ @keyframes risefield {
+    0%{
+      transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
+    }
+
+    20%{
+      transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
+    }
+  
+    100%{
+      transform: rotateX(-30deg) rotateY(-30deg) translate3d(370px,-200px,0px) scale3d(0.8,0.8,0.8);
+    }
+    } 
+
+  
+ @keyframes spin {
+    0%{
+      transform: rotateX(-90deg) rotateY(0deg) translate3d(50px,-20px,0px) scale3d(1,1,1) ;
+    }
+
+    25%{
+      transform: rotateX(0deg) rotateY(0deg) translate3d(50px, -50px,0px) scale3d(1,1,1) ;
+    }
+
+    50%{
+      transform: rotateX(0deg) rotateY(-90deg) translate3d(0px, 100px,-850px) scale3d(1,1,1) ;
+    }
+
+    75%{
+      transform: rotateX(-30deg) rotateY(-30deg) translate3d(400px, -150px,0px) scale3d(0.8,0.8,0.8);
+    }
+
+    100%{
+      transform: rotateX(-90deg) rotateY(0deg) translate3d(50px,-20px,0px) scale3d(1,1,1) ;
+    }
+    } 
+
 
 .cube {
   position: absolute;
   transform-style: preserve-3d;
 }
 
-@keyframes animate {
-  0% {
-    transform: rotateX(-30deg) rotateY(0deg);
-  }
-  100% {
-    transform: rotateX(-30deg) rotateY(360deg);
-  }
-}
 
 .cube div {
   position: absolute;
@@ -101,7 +149,6 @@ body {
 }
 
 
-
 .cube div span {
   position: absolute;
   bottom: 0;
@@ -109,15 +156,11 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  /* background: var(--greengrad); */
-  /* border: 1px solid white; */
   color:white;
   transform-origin: bottom center;
   transform: rotateY(calc(90deg*var(--i))) translateZ(calc(var(--cubeW)/2));
-  transition:  0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   background-size: cover; /* Resize the background image to cover the entire container */
 }
-
 
 
 .top {
@@ -125,14 +168,24 @@ body {
   visibility: visible;
   top: 0;
   left: 0;
-  /* background: white; */
-  /* border: 1px solid white; */
   width:0;
   height: 0;
-  /* transform: rotateX(90deg) translateZ(calc(var(--cubeW)/2*(-1))); */
-  transition: background 1s ease, transform 1s cubic-bezier(0.075, 0.82, 0.165, 1) ;
   cursor: pointer;
+  padding: 10px;
+  box-shadow: none;
+  border-radius: 10px;
+  background-size: cover; /* Scale the background image to cover the entire container */
+  background-repeat: no-repeat;
 }
+
+
+
+.glass-effect {
+  background-color: #041d30;
+  box-shadow: inset 0 0 20px #bbc7d6eb;
+  border-radius: 10px;
+  }
+   
 
 
 input {
@@ -154,25 +207,6 @@ input {
 
 .inputscontainer > div {
   margin-top: 20px;
-}
-
-#textinputcontainer{
-  padding:20px;
-}
-
-textarea {
-  position: relative;
-  font-family: PPMori;
-  background: #000;
-  color: white;
-  font-size: 16px;
-  border-radius: 20px;  
-  border: #fff solid 0.5px;
-  top: 50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  display:block;
-  
 }
 
 .slider {
@@ -206,9 +240,13 @@ textarea {
   cursor: pointer;
 }
 
+
+
 button {
 /* display: flex; */
 padding: 10px 10px;
+margin-left: 10px;
+margin-right: 10px;
 justify-content: center;
 align-items: center;
 gap: 8px;
@@ -218,6 +256,7 @@ border: 0px solid var(--light);
 background: rgba(150, 150, 150, 0.2);
 color: var(--light);
 cursor: pointer;
+font-size: 18px;
 }
 
 button:hover {
@@ -230,11 +269,37 @@ button:hover {
   color: var(--blue);
 }
 
+
+.button-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 10px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
+  background: rgba(173, 188, 206, 0.063);
+
+  color:white;
+}
+
+.gridButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #generalcontrols {
   position: absolute;
-  bottom:0;
-  left:0;
+  top:0;
+  right:0;
+  padding: 20px;
+  width: 25vw;
+  font-size: 15px;
+  border-radius: 12px;
+  background: #1d1f2adb
 }
+
 
 #generalcontrols > button {
   cursor: pointer;
@@ -245,12 +310,18 @@ button:hover {
 }
 
 .gridShown {
-  border: 1px solid rgba(255, 255, 255, 0.516);
+  border: 1px solid white;
 }
 
 .grid-hover {
   background-color: #bbc7d68a;
 } 
+
+.header {
+  padding: 10px;
+  font-family: Monopol;
+  font-size: 23rem;
+}
 
 .h1text {
   word-wrap: break-word;
@@ -288,47 +359,6 @@ button:hover {
 }
 
 
-
-/* COLOR BUTTONS */
-#colorinputcontainer > button {
-  border: 1px white solid;
-  cursor: pointer;
+#clear {
+  margin-top:20px;
 }
-
-#colorinputcontainer > button:hover {
-  box-shadow: 0px 1px 2px 0px rgba(100, 100, 100, 0.3), 0px 2px 6px 2px rgba(100, 100, 100, 0.15);
-}
-
-#color1 {
-  background: var(--blue);
- 
-}
-
-#color2 {
-  background: var(--light);
-}
-
-
-#color3 {
-  background: var(--white);
-}
-
-#color4 {
-  background: var(--cpgradient);
-}
-
-#color5 {
-  background: #00000000;
-}
-
-.glass-effect {
-/* background: radial-gradient(#041D30 0%, #BBC7D6 70%, #ffffff00 100%); */
-background-color: #041d309f;
-box-shadow: inset 0 0 30px #BBC7D6;
-border-radius: 10px;
-/* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
-/* backdrop-filter: blur(3px); */
--webkit-backdrop-filter: blur(8.6px);
-border: 1px solid rgba(255, 255, 255, 0.21);
-}
-
