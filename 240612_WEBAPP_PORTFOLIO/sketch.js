@@ -189,6 +189,14 @@ for (let i = 0; i < cubes.length; i++) {
 }
 }
 
+function fill1Cube() {
+  const itemfaces = cubes[13].children;
+  for (var b = 0; b < itemfaces.length; b++) {
+    itemfaces[b].classList.add('glass-effect');
+  };
+}
+
+fill1Cube();
 
 
 
