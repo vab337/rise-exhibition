@@ -1,6 +1,7 @@
 const cubes = document.getElementsByClassName("cube");
 const container = document.getElementById("container");
 const tops = document.getElementsByClassName("top");
+const bottoms = document.getElementsByClassName("bottom");
 const sides = document.getElementsByClassName("side");
 var cubeChosen = 0; 
 
@@ -8,7 +9,7 @@ var cubeChosen = 0;
 var cols = 3;
 var rows = 3;
 var layers = 3;
-var cubeW = 200;
+var cubeW = 150;
 var cubesNumber = cols*rows*layers;
 
 
@@ -19,18 +20,11 @@ for (var i=0; i<cubesNumber; i++) {
   container.appendChild(cube);
   cube.setAttribute("style", "--j:"+i);
 
-
-  //create div that hold the sides 
-  const sidescontainer = document.createElement("div");
-  sidescontainer.className = "sidescontainer";
-
-  cube.appendChild(sidescontainer);
-
   //create top side
   const top = document.createElement("div");
   top.className = "top";
   top.id = "top" + i;
-  sidescontainer.appendChild(top);
+  cube.appendChild(top);
   top.addEventListener('mouseover', function() {
     changeAllSidesColor(this, '#ADD8E680');
   });
@@ -38,13 +32,25 @@ for (var i=0; i<cubesNumber; i++) {
     changeAllSidesColor(this, '');
   });
 
+   //create top side
+  const bottom = document.createElement("div");
+  bottom.className = "bottom";
+  bottom.id = "bottom" + i;
+  cube.appendChild(bottom);
+  bottom.addEventListener('mouseover', function() {
+    changeAllSidesColor(this, '#ADD8E680');
+  });
+  bottom.addEventListener('mouseout', function() {
+    changeAllSidesColor(this, '');
+  });
+
 
   //create sides
   for(var j=0; j<4;j++) {
-    const side = document.createElement("span");
+    const side = document.createElement("div");
     side.className = "side";
 
-    sidescontainer.appendChild(side);
+    cube.appendChild(side);
     side.setAttribute("style", "--i:"+j);
 
      // Add hover effect
@@ -97,15 +103,24 @@ for (var j=0; j<cubes.length; j++) {
     tops[j].style.height = cubeW + "px";
     tops[j].style.transform = "rotateX(90deg) translateZ(calc(" + cubeW + "px" + "/2))";
 
+    bottoms[j].style.width = cubeW + "px";
+    bottoms[j].style.height = cubeW + "px";
+    bottoms[j].style.transform = "rotateX(90deg) translateZ(calc(" + cubeW + "px" + "/(-2))";
+
+    
+
     const item = tops[j].parentElement;
     item.style.height = cubeW + "px";
-    const itemsides = item.querySelectorAll("div>span");
+    const itemsides = item.querySelectorAll("div.side");
     for (var i=0; i<itemsides.length; i++) {
       itemsides[i].style.transform = "rotateY(calc(90deg*var(--i))) translateZ(calc(" + (cubeW) +"px" + "/2))";
     }
   }
-//END OF CREATING GRID 
 
+  for(var s =0; s<sides.length; s++) {
+    sides[s].classList.add("gridShown");
+  }
+//END OF CREATING GRID 
 
 
 //ORBIT CONTROL
@@ -138,69 +153,55 @@ function mouseMoved(ev) {
 
 }
 
-//HIDE CONTROLS
-document.getElementById("hidecontrols").addEventListener("click", hideControls);
-var controlsHidden = false;
-
-function hideControls() {
-  if(controlsHidden == false) {
-    document.getElementById("inputscontainer").classList.add("controlshidden");
-    controlsHidden = true;
-  } else {
-    document.getElementById("inputscontainer").classList.remove("controlshidden");
-    controlsHidden = false;
-
-  }
-}
 
 //HIDE GRID
-document.getElementById("showgrid").addEventListener("click", showGrid);
-var gridHidden = false;
+const showGridBtn = document.getElementById("showGrid");
+showGridBtn.addEventListener("click", showGrid);
+
 
 function showGrid() {
-
-  if(gridHidden == false) {
     for(var s =0; s<sides.length; s++) {
-    sides[s].classList.add("gridShown");
+    sides[s].classList.toggle("gridShown");
+    
   }
-    gridHidden = true;
+  if (showGridBtn.innerText === 'Show Grid') {
+    showGridBtn.innerText = 'Hide Grid';
   } else {
-    for(var x =0; x<sides.length; x++) {
-      sides[x].classList.remove("gridShown");
-    }
-    gridHidden = false;
-
+    showGridBtn.innerText = 'Show Grid';
   }
 }
 
 //CHOOSE CUBE TO EDIT
 
-const sidesContainers = document.getElementsByClassName('sidescontainer');
+const cubeChosenState = document.getElementById('cubeChosenState');
 
-for (let i = 0; i < sidesContainers.length; i++) {
-  const sides = sidesContainers[i].children;
+for (let i = 0; i < cubes.length; i++) {
+  const sides = cubes[i].children;
+  
   for( let s = 0; s < sides.length; s++){ 
     sides[s].addEventListener('click', function() {
-    const sidesContainerArray =  Array.from(sidesContainers);
-    const order = sidesContainerArray.indexOf(this.parentNode);
-    cubeChosen = order;
+    cubeChosen = parseInt(this.parentNode.id.substr(4));
+    cubeChosenState.innerText = "Cube " + cubeChosen + " selected";
     addColortoSides();
+    for (var g = 0; g <sideButtons.length; g++) {
+      sideButtons[g].classList.remove('active-button');  }
   });
 }
 }
 
 
 
+
 //SIDE input options
-for (var t = 0; t < 4; t++) {
+for (var t = 0; t < 6; t++) {
   const sideButton = document.createElement("button");
   sideButton.className = "sideButton";
-  sideButton.id = "sideButton" + t;
-  sideButton.innerText = "Side " + (t+1) ;
+  sideButton.id = "sideButton" + t ;
+  sideButton.innerText = "Side " + (t+1);
   sideButton.addEventListener("click", sideChosen);
   sideButton.addEventListener("mouseover", sideHover);
   sideButton.addEventListener("mouseout", sideHoverEnd);
-  document.getElementById("sidecontainer").appendChild(sideButton);
+  document.getElementById("sideButtonContainer").appendChild(sideButton);
   }
 
 
@@ -210,20 +211,25 @@ var sideNumber = 0;
 
 function sideChosen() {
    sideNumber = parseInt(this.id.substr(10));
+   console.log(this.id + "..." + sideNumber);
+
     for (var g = 0; g <sideButtons.length; g++) {
       sideButtons[g].classList.remove('active-button');
       sideButtons[sideNumber].classList.add('active-button');
   }
-  topChoose = false;
-  topButton.classList.remove('active-button');
+  const itemsides = cubes[cubeChosen].children;
+  for (var b = 0; b <6; b++) {
+    itemsides[sideNumber].classList.add('grid-hover');
+  }
+
 }
 
 function sideHover() {
   sideNumber = parseInt(this.id.substr(10));
   for (var a = 0; a < cubes.length; a++) {
-  const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-    for (var b = 0; b <4; b++) {
-      itemsides[sideNumber].classList.toggle('grid-hover');
+  const itemsides = cubes[cubeChosen].querySelectorAll("div");
+    for (var b = 0; b <6; b++) {
+      itemsides[sideNumber].classList.add('grid-hover');
     }
   }
 }
@@ -232,73 +238,137 @@ function sideHover() {
 function sideHoverEnd() {
   sideNumber = parseInt(this.id.substr(10));
   for (var a = 0; a < cubes.length; a++) {
-  const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
+  const itemsides = cubes[cubeChosen].querySelectorAll("div");
     for (var b = 0; b <4; b++) {
-      itemsides[sideNumber].classList.toggle('grid-hover');
+      itemsides[sideNumber].classList.remove('grid-hover');
     }
   }
 }
 
-const topButton = document.createElement("button");
-document.getElementById("sidecontainer").appendChild(topButton);
-topButton.className = "topButton";
-topButton.id = "topButton";
-topButton.innerText = "Top";
-topButton.addEventListener("click", topChosen);
-topButton.addEventListener("mouseover", function() {
-  tops[cubeChosen].classList.toggle('grid-hover');
-});
-topButton.addEventListener("mouseout", function() {
-  tops[cubeChosen].classList.toggle('grid-hover');
-});
 
-
-var topChoose = false;
-function topChosen() {
-  topButton.classList.add('active-button');
-  topChoose = true;
-  for (var g = 0; g <sideButtons.length; g++) {
-    sideButtons[g].classList.remove('active-button');
-  }
+function insertText() {
+  const itemsides = cubes[cubeChosen].children;
+  const text = document.createElement('div');
+  text.classList.add('gradient-text');
+  text.innerText = textInput.toString();
+    // Remove all existing children of the target side
+    while (itemsides[sideNumber].firstChild) {
+      itemsides[sideNumber].removeChild(itemsides[sideNumber].firstChild);
+    }
+  
+  console.log(itemsides[sideNumber]);
+  itemsides[sideNumber].appendChild(text);
+  sideNumber = 0;
 }
+
 
 
 
 //ADD and CLEAR COLORS
 
 function addColortoSides() {
-    const itemsides = sidesContainers[cubeChosen].children;
-    for (var b = 0; b < 5; b++) {
-        itemsides[b].classList.add('glass-effect');
-    };
-}
-
-document.getElementById('clear').addEventListener('click',clearCube);
-function clearCube() {
-  tops[cubeChosen].classList.remove('glass-effect');
-  const itemsides = cubes[cubeChosen].querySelectorAll("div>span");
-    for (var b = 0; b < 4; b++) {
-        itemsides[b].classList.remove('glass-effect');
-        itemsides[b].style.backgroundImage = 'none';
+  const itemfaces = cubes[cubeChosen].children;
+  for (var b = 0; b < itemfaces.length; b++) {
+    itemfaces[b].classList.add('glass-effect');
   };
 }
 
 
+document.getElementById('clear').addEventListener('click',clearCube);
+
+
+function clearCube() {
+  const itemfaces = cubes[cubeChosen].children;
+  for (var b = 0; b < itemfaces.length; b++) {
+    itemfaces[b].classList.remove('glass-effect');
+    console.log(itemfaces[b].children);
+    for (let c = 0; c < itemfaces[b].children.length; c++) {
+      itemfaces[b].children[c].innerText = '';
+    }  };
+}
 
 
 
+//KEYBOARD 
+const keysLayout = [
+  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+  'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+  'U', 'V', 'W', 'X', 'Y', 'Z'
+];
 
+const keyboard = document.getElementById('keyboard');
+var textInput = '0';
+
+keysLayout.forEach(key => {
+  const keyElement = document.createElement('div');
+  keyElement.classList.add('key');
+  keyElement.textContent = key;
+  keyElement.addEventListener('click', () => {
+    textInput = key;
+    insertText();
+  });
+  keyboard.appendChild(keyElement);
+});
+
+
+
+//COLOR Input
+document.addEventListener('DOMContentLoaded', () => {
+  const colorButtons = document.querySelectorAll("#bgcolorinputcontainer button");
+  const uibackground = document.getElementById('uibackground');
+
+  colorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const background = window.getComputedStyle(button).background;
+      uibackground.style.background = background;
+    });
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const colorButtons = document.querySelectorAll("#textcolorinputcontainer button");
+  const allTexts = document.getElementsByClassName('gradient-text');
+
+  colorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const newbackgroundImage = window.getComputedStyle(button).backgroundImage;
+      for (var j=0; j<allTexts.length; j++) {
+        allTexts.style.backgroundImage = newbackgroundImage;
+      }
+    });
+  });
+});
+
+
+//ROTATE MODES
+const rotate0 = document.getElementById("rotate0");
+const rotate1 = document.getElementById("rotate1");
+const rotate2 = document.getElementById("rotate2");
+var rotateModes = document.getElementsByClassName('rotateMode');
+
+for (var r = 0; r<rotateModes.length; r++) {
+  rotateModes[r].addEventListener('click', chooseRotateMode(r));
+}
+
+function chooseRotateMode(index) {
+  return function() {
+  container.classList = [];
+  container.classList.add('animator' + index);
+  }
+}
 //CAMERA VIEWS
-document.getElementById('view1').addEventListener('click', () => {
-  container.classList = [];
-  container.style.transform = '';
-  container.classList.add('topdownview');
-})
+// document.getElementById('view1').addEventListener('click', () => {
+//   container.classList = [];
+//   container.style.transform = '';
+//   container.classList.add('topdownview');
+// })
 
-document.getElementById('view2').addEventListener('click', () => {
-  container.classList = [];
-  container.style.transform = '';
-  container.classList.add('isoview');
-})
+// document.getElementById('view2').addEventListener('click', () => {
+//   container.classList = [];
+//   container.style.transform = '';
+//   container.classList.add('isoview');
+// })
 
 

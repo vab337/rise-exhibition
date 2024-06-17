@@ -16,8 +16,8 @@
 }
 
 @font-face {
-  font-family: Monopol;
-  src: url(assets/Monopol-TRIAL.otf);
+  font-family: Rise;
+  src: url(assets/rise-testfont-Regular.otf);
 }
 
 :root {
@@ -27,12 +27,13 @@
   --green: #16FF89;
   --yellow: #FFFF42;
   --palegren: #E5FFD5;
-  --gradient3: linear-gradient(#16FF89 0%,#E5FFD5,  #FFFF42 95%); 
-  --greengrad:  linear-gradient(#16FF89,#fff); 
-  --yellowgrad:  linear-gradient(#FFFF42,#fff); 
+  --gradient: linear-gradient(#041D30, #BBC7D6); 
   --blue: #041D30;
   --light: #BBC7D6;
   --white: #fff;
+  --grey: #d9d9d9;
+  --darkgrey: #b2b2b2;
+  --lightgrey: #f5f5f5;
   --cpgradient: linear-gradient(#16FF89,  #FFFF42); 
 }
 
@@ -42,7 +43,7 @@ body {
   text-align: center;
   align-items: center;
   min-height: 100vh;
-  background: var(--blue);
+  background: #02131f;
   /* background: linear-gradient(#16FF89 0%,#fff 5%,#fff 80%, #16FF89 95%);  */
   font-family: Light;
   user-select: none; /* Standard syntax */
@@ -56,59 +57,36 @@ body {
 }
 
 .sectionTitle {
-  border-top: 1px solid white;
-  padding-top: 10px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: white;
+  margin-bottom: 10px;
   font-size: 20px;
+  color: var(--lightgrey);
 }
 
 #container {
   display: block;
   position: absolute;
-  /* width: 900px;
-  height: 900px; */
   flex-flow: row wrap;
   row-gap: 0px;
-  top: 200px;
-  left: 35%;
+  top: 30%;
+  left: 30%;
   transform-style: preserve-3d;
-  /* transform-origin: 50% 50% -300px; */
-  transform-origin: 0% 0% 0px;
-  /* transform-origin: 50% 0% -500px; */
+  transform-origin: 225px 225px 225px; /* Center of the cube */
+  transform: rotateX(-30deg) rotateY(-30deg) translate3d(600px,-300px,0px);
+
 }
 
 
-  .animator {
-    /* animation: risefield 10s cubic-bezier(0.075, 0.82, 0.165, 1) infinite; */
-    /* animation: risefield 5s cubic-bezier(0.785, 0.135, 0.150, 0.860) infinite alternate; */ 
-    animation: spin 10s cubic-bezier(0.405, 0.005, 0.000, 1.000) infinite; 
+
+.animate {
+    animation: spin 10s cubic-bezier(0.405, 0.005, 0.000, 1.000) alternate-reverse; 
   }
 
 .topdownview {
   transform: rotateX(-90deg) rotateY(0deg) translateY(0px);
 }
 
-.isoview {
-  transform: rotateX(-30deg) rotateY(-30deg) translate3d(600px,-300px,0px);
-}
 
-
- @keyframes risefield {
-    0%{
-      transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
-    }
-
-    20%{
-      transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
-    }
-  
-    100%{
-      transform: rotateX(-30deg) rotateY(-30deg) translate3d(370px,-200px,0px) scale3d(0.8,0.8,0.8);
-    }
-    } 
-
+ 
   
  @keyframes spin {
     0%{
@@ -156,16 +134,20 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  color:white;
   transform-origin: bottom center;
-  transform: rotateY(calc(90deg*var(--i))) translateZ(calc(var(--cubeW)/2));
-  background-size: cover; /* Resize the background image to cover the entire container */
+  transform: rotateY(calc(90deg*var(--i))) translateZ(calc(var(--cubeW)/2)); /* Resize the background image to cover the entire container */
+  font-family: Rise;
+  font-size: 230px;
+  display: flex;
+  color: var(--cpgradient);
+  justify-content: center; /* Horizontal alignment */
+  align-items: center; /* Vertical alignment */
+  cursor: pointer;
 }
 
 
 .top {
   position: absolute;
-  visibility: visible;
   top: 0;
   left: 0;
   width:0;
@@ -174,10 +156,9 @@ body {
   padding: 10px;
   box-shadow: none;
   border-radius: 10px;
-  background-size: cover; /* Scale the background image to cover the entire container */
-  background-repeat: no-repeat;
-}
 
+
+}
 
 
 .glass-effect {
@@ -197,39 +178,35 @@ input {
 .inputscontainer {
   position: absolute;
   padding: 20px;
-  width: 20vw;
+  width: 25vw;
   top: 0 ; 
   left: 0;
   font-size: 15px;
   border-radius: 12px;
-  background: #1d1f2adb
 }
 
 .inputscontainer > div {
   margin-top: 20px;
 }
 
-.slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 15px;
-  border-radius: 5px;  
-  border: #fff solid 1px;
-  background: rgba(0,0,0,0.2);
-
-  outline: none;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+.controlsSection {
+  border-radius: 20px; 
+  outline: 1px solid #d9d9d933; 
+  padding: 20px;
+  text-align: left;
+  color: var(--light);
+  margin: 20px 0px;
 }
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%; 
-  background: #fff;
-  cursor: pointer;
+
+#rightControls {
+  position: absolute;
+  padding: 20px;
+  width: 25vw;
+  top: 0; 
+  right: 0;
+  font-size: 15px;
+  border-radius: 12px;
 }
 
 .slider::-moz-range-thumb {
@@ -243,30 +220,58 @@ input {
 
 
 button {
-/* display: flex; */
-padding: 10px 10px;
-margin-left: 10px;
-margin-right: 10px;
-justify-content: center;
-align-items: center;
-gap: 8px;
-align-self: stretch;
-border-radius: 100px;
-border: 0px solid var(--light);
-background: rgba(150, 150, 150, 0.2);
-color: var(--light);
-cursor: pointer;
-font-size: 18px;
+  width: 100px;
+  aspect-ratio:  3 / 1;
+  font-family: Light;
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 5px;
+  border: 0px solid var(--light);
+  background: #bbc7d6a0;
+  color: black;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+#sideButtonContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  justify-content: space-around; /* Distribute items with space around them */
+  gap: 10px; /* Gap between items */
+}
+
+.sideButton {
+  font-family: Light;
+  flex: 1 1 calc(33.333% - 20px); /* Flex basis to take 1/3rd of the container width minus the gap */
+  margin: 5px; /* Margin for spacing between buttons */
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+
+#animButtonContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 10px; /* Gap between items */
+  row-gap: 15px;
 }
 
 button:hover {
-  background: #bbc7d68a;
+  background: var(--light);
   transition: 0.5s ease;
 }
 
 .active-button {
   background: var(--light);
-  color: var(--blue);
 }
 
 
@@ -275,12 +280,10 @@ button:hover {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(6, 1fr);
   gap: 10px;
+  row-gap: 10px;
   padding: 10px;
   margin: 10px;
   border-radius: 20px;
-  background: rgba(173, 188, 206, 0.063);
-
-  color:white;
 }
 
 .gridButton {
@@ -297,7 +300,6 @@ button:hover {
   width: 25vw;
   font-size: 15px;
   border-radius: 12px;
-  background: #1d1f2adb
 }
 
 
@@ -305,12 +307,16 @@ button:hover {
   cursor: pointer;
 }
 
+#switches {
+  outline: 0px solid #d9d9d933; 
+}
+
 .controlshidden {
   visibility: hidden;
 }
 
 .gridShown {
-  border: 1px solid white;
+  border: 1px solid #d9d9d933;
 }
 
 .grid-hover {
@@ -344,21 +350,233 @@ button:hover {
   font-size: 70px;
   line-height: 60px;
   letter-spacing: −5px; 
-
-
 }
 
 .h4text {
   word-wrap: break-word;
   font-size: 70px;
   line-height: 60px;
-  /* font-size: 50px;
-  line-height: 40px; */
   letter-spacing: −5px; 
-
 }
 
 
 #clear {
   margin-top:20px;
+}
+
+
+.keyboardContainer {
+  margin: 20px;
+}
+
+#keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.key {
+  /* flex: 1 1 calc(20% - 20px);  */
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #bbc7d6a0;
+  color: var(--blue);
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.key:hover {
+  background-color: var(--light);
+}
+
+#textInput {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  display: block;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.gradient-text {
+  background-image: var(--cpgradient);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-text-fill-color: transparent;
+  position: relative;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center; /* Horizontal alignment */
+  align-items: center; /* Vertical alignment */
+  height: 100%; /* Ensure the container takes full height */
+  font-family: Rise;
+  font-size: 200px;
+  line-height: 230px;
+}
+
+#uibackground {
+  display: block;
+  position: absolute;
+  top: 40px;
+  background: var(--blue);
+  width: 50vw; /* Adjust this value to set the desired width based on viewport width */
+  aspect-ratio: 1 / 1; /* Ensures the height is equal to the width */
+  background-color: var(--blue); /* Optional: for visual reference */
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+
+
+.showGrid {
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center the children horizontally within the parent */
+  align-items: center; /* Center the children vertically within the parent */
+  width: 40%; /* Ensure the parent takes full width of its container */
+}
+
+.showGrid > * {
+  flex: 1; /* Allow each child to grow and shrink equally */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  text-align: left; /* Center the text horizontally within each child */
+}
+
+
+/* COLOR BUTTONS */
+.colorinput > button {
+  border: 1px white solid;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.colorinput > button:hover {
+  box-shadow: 0px 1px 2px 0px rgba(100, 100, 100, 0.3), 0px 2px 6px 2px rgba(100, 100, 100, 0.15);
+}
+
+#color1 {
+  background: var(--blue);
+ 
+}
+
+#color2 {
+  background: var(--light);
+}
+
+#color3 {
+  background: var(--gradient);
+}
+
+#color4 {
+  background-image: var(--blue);
+ 
+}
+
+#color5 {
+  background-image: var(--light);
+}
+
+#color6 {
+  background-image: var(--gradient);
+}
+
+
+/* ANIMATION -------------*/
+
+.animator0 {
+  animation: rise 10s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+}
+
+.animator1 {
+animation: rise1 10s linear infinite;
+}
+
+
+.animator2 {
+  animation: rise2 10s linear infinite;
+}
+
+.animator3 {
+  animation: rise3 10s linear infinite;
+}
+
+.animator4 {
+  animation: rise4 10s linear infinite;
+}
+
+
+
+
+@keyframes rise {
+  0%{
+    transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
+  }
+
+  30%{
+    transform: rotateX(0deg) rotateY(0deg)  scale3d(1,1,1) ;
+  }
+
+  50%{
+    transform: rotateX(-30deg) rotateY(-30deg) scale3d(0.8,0.8,0.8);
+  }
+
+
+  100%{
+    transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
+  }
+}
+
+
+@keyframes rise1 {
+  0%{
+    transform: rotateX(-30deg) rotateY(0deg) ;
+  }
+
+ 100%{
+    transform: rotateX(-30deg) rotateY(360deg) ;
+  }
+}
+
+@keyframes rise2 {
+  0%{
+    transform: rotateX(0deg) rotateY(0deg) scale3d(3,3,3) ;
+  }
+
+ 100%{
+    transform: rotateX(0deg) rotateY(360deg) scale3d(3,3,3);
+  }
+}
+
+
+@keyframes rise3 {
+
+  0%{
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(5000px) scale3d(5,5,5);
+  }
+
+  20%{
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translatez(0px) scale3d(5,5,5);
+  }
+  100%{
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg)  translatez(0px)  scale3d(0,0,0);
+  }
+
+}
+
+@keyframes rise4 {
+  0%{
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100%{
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
 }
