@@ -19,24 +19,30 @@
 
     <div class="inputscontainer" id="inputscontainer">
       <div class="controlsSection">
-        <div class="sectionTitle">Choose cube</div>
-        <div class="sectionBody" id="cubeChosenState">
+        <div class="sectionTitle" id="cubeChosenState">
           No cube selected.
         </div>
       </div>
 
       <div id="sidecontainer" class="controlsSection">
-        <div class="sectionTitle">Choose side</div>
+        <div class="sectionTitle">
+          <div class="left-text">Choose</div>
+        <div class="right-text">side</div>
+        </div>
         <div id="sideButtonContainer"></div>
       </div>
 
       <div class="controlsSection">
-        <div class="sectionTitle">Choose character</div>
+        <div class="sectionTitle">
+          <div class="left-text">Choose</div>
+          <div class="right-text">character</div>
+        </div>
+
 
         <div id="keyboard"></div>
       </div>
 
-      <div class="controlsSection" id="switches"> 
+      <div class="" id="switches"> 
           <button id="showGrid">Hide Grid</button>
           <button id="clear">Clear texture</button>
     </div>
@@ -48,7 +54,10 @@
 
 
         <div class="controlsSection">
-          <div class="sectionTitle"> Change background </div>
+          <div class="sectionTitle"> 
+            <div class="left-text">Choose</div>
+            <div class="right-text">background</div>
+          </div>
 
         <div id="bgcolorinputcontainer" class="colorinput">
           <button id="color1"></button>
@@ -59,7 +68,10 @@
 
 
       <div id="animatemodes" class="controlsSection">
-      <div class="sectionTitle"> Animation Modes </div>
+      <div class="sectionTitle">
+        <div class="left-text">Animation</div>
+        <div class="right-text">modes</div>
+      </div>
 
       <div id="animButtonContainer"> 
         <button id="rotate0" class="rotateMode">Rise</button>
@@ -67,15 +79,30 @@
         <button id="rotate2" class="rotateMode">Flat Earth</button>
         <button id="rotate3" class="rotateMode">Vertigo</button>
         <button id="rotate4" class="rotateMode">Roll</button>
+        <button id="reset" class="rotateMode">Reset</button>
+
       </div>
 
 
       </div>
       </div>
+
+      <div class="logo">
+        <img src="assets/logov5.png" alt="Image Description">
+      </div>
+
+      <div class="copyright">
+        2024 © The Lab Co., Ltd.
+        
+          Developed by
+          <a href="https://www.instagram.com/marchsecondninetynine/" target="_blank">Ven Bui</a>, 
+          <a href="https://www.instagram.com/cheatdayhat/" target="_blank">Tuan Ha</a>, 
+          <a href="https://www.instagram.com/thptdesign/" target="_blank">Thinh Tran</a>        </div>
+    
 
 
  
     <script src="sketch.js"></script>
-    <script src="sketch-anime.js"></script>
+    <!-- <script src="sketch-anime.js"></script> -->
   </body>
 </html>

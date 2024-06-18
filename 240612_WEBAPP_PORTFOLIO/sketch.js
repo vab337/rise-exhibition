@@ -213,61 +213,66 @@ for (var t = 0; t < 6; t++) {
   }
 
 
-const sideButtons = document.getElementsByClassName("sideButton");
+  const sideButtons = document.getElementsByClassName("sideButton");
+  var sideNumber = 0;
 
-var sideNumber = 0;
+  function sideChosen() {
+    sideNumber = parseInt(this.id.substr(10));
+    console.log(`Chosen side: ${sideNumber}, Cube: ${cubeChosen}`);
 
-function sideChosen() {
-   sideNumber = parseInt(this.id.substr(10));
-   console.log(this.id + "..." + sideNumber);
-
-    for (var g = 0; g <sideButtons.length; g++) {
+    // Remove active-button class from all buttons
+    for (var g = 0; g < sideButtons.length; g++) {
       sideButtons[g].classList.remove('active-button');
-      sideButtons[sideNumber].classList.add('active-button');
-  }
-  const itemsides = cubes[cubeChosen].children;
-  for (var b = 0; b <6; b++) {
+    }
+
+    // Add active-button class to the chosen button
+    sideButtons[sideNumber].classList.add('active-button');
+
+    const itemsides = cubes[cubeChosen].querySelectorAll("div");
+    for (var b = 0; b < itemsides.length; b++) {
+      itemsides[b].classList.remove('grid-hover');
+    }
     itemsides[sideNumber].classList.add('grid-hover');
   }
 
-}
-
-function sideHover() {
-  sideNumber = parseInt(this.id.substr(10));
-  for (var a = 0; a < cubes.length; a++) {
-  const itemsides = cubes[cubeChosen].querySelectorAll("div");
-    for (var b = 0; b <6; b++) {
-      itemsides[sideNumber].classList.add('grid-hover');
+  function sideHover() {
+    const hoverSideNumber = parseInt(this.id.substr(10));
+    const itemsides = cubes[cubeChosen].querySelectorAll("div");
+    for (var b = 0; b < itemsides.length; b++) {
+      itemsides[b].classList.remove('grid-hover');
     }
+    itemsides[hoverSideNumber].classList.add('grid-hover');
   }
-}
 
-
-function sideHoverEnd() {
-  sideNumber = parseInt(this.id.substr(10));
-  for (var a = 0; a < cubes.length; a++) {
-  const itemsides = cubes[cubeChosen].querySelectorAll("div");
-    for (var b = 0; b <4; b++) {
-      itemsides[sideNumber].classList.remove('grid-hover');
-    }
+  function sideHoverEnd() {
+    const hoverEndSideNumber = parseInt(this.id.substr(10));
+    const itemsides = cubes[cubeChosen].querySelectorAll("div");
+    itemsides[hoverEndSideNumber].classList.remove('grid-hover');
   }
-}
 
+  function insertText() {
+    const itemsides = cubes[cubeChosen].querySelectorAll("div");
+    const text = document.createElement('div');
+    text.classList.add('gradient-text');
+    text.innerText = textInput.toString();
 
-function insertText() {
-  const itemsides = cubes[cubeChosen].children;
-  const text = document.createElement('div');
-  text.classList.add('gradient-text');
-  text.innerText = textInput.toString();
     // Remove all existing children of the target side
     while (itemsides[sideNumber].firstChild) {
       itemsides[sideNumber].removeChild(itemsides[sideNumber].firstChild);
     }
-  
-  console.log(itemsides[sideNumber]);
-  itemsides[sideNumber].appendChild(text);
-  sideNumber = 0;
-}
+
+    console.log(`Inserting text into side: ${sideNumber}, Cube: ${cubeChosen}`);
+    console.log(itemsides[sideNumber]);
+    itemsides[sideNumber].appendChild(text);
+    sideNumber = 0;
+  }
+
+  // Attach event listeners to side buttons
+  for (var r = 0; r < sideButtons.length; r++) {
+    sideButtons[r].addEventListener('click', sideChosen);
+    sideButtons[r].addEventListener('mouseover', sideHover);
+    sideButtons[r].addEventListener('mouseout', sideHoverEnd);
+  };
 
 
 
@@ -309,8 +314,9 @@ const keyboard = document.getElementById('keyboard');
 var textInput = '0';
 
 keysLayout.forEach(key => {
-  const keyElement = document.createElement('div');
+  const keyElement = document.createElement('button');
   keyElement.classList.add('key');
+
   keyElement.textContent = key;
   keyElement.addEventListener('click', () => {
     textInput = key;
@@ -362,21 +368,14 @@ for (var r = 0; r<rotateModes.length; r++) {
 
 function chooseRotateMode(index) {
   return function() {
+    for (var r = 0; r < rotateModes.length; r++) {
+      rotateModes[r].classList.remove('active-button');
+    }
   container.classList = [];
   container.classList.add('animator' + index);
+  rotateModes[index].classList.add('active-button');
+
   }
 }
-//CAMERA VIEWS
-// document.getElementById('view1').addEventListener('click', () => {
-//   container.classList = [];
-//   container.style.transform = '';
-//   container.classList.add('topdownview');
-// })
-
-// document.getElementById('view2').addEventListener('click', () => {
-//   container.classList = [];
-//   container.style.transform = '';
-//   container.classList.add('isoview');
-// })
 
 

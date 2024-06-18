@@ -4,15 +4,9 @@
   box-sizing: border-box;
 }
 
-
-@font-face {
-  font-family: Light;
-  src: url(assets/AeonikTRIAL-Light.otf);
-}
-
 @font-face {
   font-family: Regular;
-  src: url(assets/Aeonik-Regular.ttf);
+  src: url(assets/TT-Hoves-Pro-Regular.otf);
 }
 
 @font-face {
@@ -33,7 +27,7 @@
   --white: #fff;
   --grey: #d9d9d9;
   --darkgrey: #b2b2b2;
-  --lightgrey: #f5f5f5;
+  --regulargrey: #f5f5f5;
   --cpgradient: linear-gradient(#16FF89,  #FFFF42); 
 }
 
@@ -43,23 +37,200 @@ body {
   text-align: center;
   align-items: center;
   min-height: 100vh;
-  background: #02131f;
+  background: #01101a;
   /* background: linear-gradient(#16FF89 0%,#fff 5%,#fff 80%, #16FF89 95%);  */
-  font-family: Light;
+  font-family: Regular;
   user-select: none; /* Standard syntax */
 
 }
 
 #appTitle {
   font-family: Regular;
-  color: var(--light);
+  color: var(--regular);
   font-size: 28px;
 }
 
 .sectionTitle {
+  display: flex;
+  justify-content: space-between;
+
   margin-bottom: 10px;
-  font-size: 20px;
-  color: var(--lightgrey);
+  font-size: 16px;
+  text-transform: uppercase;
+
+  /* background-image: var(--cpgradient);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-text-fill-color: transparent; */
+
+  color: var(--light)
+}
+
+
+.controlsSection {
+  border-radius: 10px; 
+  /* outline: 1px solid #d9d9d933;  */
+  padding: 20px;
+  text-align: left;
+  color: var(--regular);
+    margin: 20px 0px;
+
+  background-color: #041d30;
+  box-shadow: inset 0 0 10px #bbc7d6eb;
+}
+
+
+#rightControls {
+  position: absolute;
+  padding: 20px;
+  width: 25vw;
+  top: 0; 
+  right: 0;
+  font-size: 15px;
+  border-radius: 12px;
+}
+
+.inputscontainer {
+  position: absolute;
+  padding: 20px;
+  width: 25vw;
+  top: 0 ; 
+  left: 0;
+  font-size: 15px;
+  border-radius: 12px;
+}
+
+.inputscontainer > div {
+  margin-top: 20px;
+}
+
+
+
+button {
+  width: 100px;
+  aspect-ratio:  3 / 1;
+  font-family: Regular;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 5px;
+  border: 0px solid var(--regular);
+  background: #0c2c44;
+  color: var(--light);
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: var(--light);
+  color: var(--blue);
+  transition: 0.5s ease;
+}
+
+.active-button {
+  background: var(--light);
+  color: var(--blue);
+  border: 10px solid;
+}
+
+
+#sideButtonContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  justify-content: space-around; /* Distribute items with space around them */
+  gap: 10px; /* Gap between items */
+}
+
+.sideButton {
+  font-family: Regular;
+  flex: 1 1 calc(30% - 20px); /* Flex basis to take 1/3rd of the container width minus the gap */
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+
+.keyboardContainer {
+  margin: 20px;
+}
+
+#keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  max-width: 600px;
+  margin: 0 auto;
+  gap: 10px; /* Gap between items */
+}
+
+.key {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.key:hover {
+  /* background-color: var(--regular); */
+}
+
+
+#animButtonContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 10px; /* Gap between items */
+  row-gap: 10px;
+  justify-content: left;
+
+}
+
+.rotateMode {
+  font-family: Regular;
+  flex: 1 1 calc(30% - 20px); /* Flex basis to take 1/3rd of the container width minus the gap */
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+
+#generalcontrols {
+  position: absolute;
+  top:0;
+  right:0;
+  padding: 20px;
+  width: 25vw;
+  font-size: 15px;
+  border-radius: 12px;
+}
+
+
+#generalcontrols > button {
+  cursor: pointer;
+}
+
+#switches > button {
+  font-family: Regular;
+  flex: 1 1 calc(50% - 20px); /* Flex basis to take 1/3rd of the container width minus the gap */
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  margin:  10px;
+  box-shadow: inset 0 0 10px #bbc7d6eb;
 }
 
 #container {
@@ -175,141 +346,7 @@ input {
   font-size: 14px;
 }
 
-.inputscontainer {
-  position: absolute;
-  padding: 20px;
-  width: 25vw;
-  top: 0 ; 
-  left: 0;
-  font-size: 15px;
-  border-radius: 12px;
-}
 
-.inputscontainer > div {
-  margin-top: 20px;
-}
-
-.controlsSection {
-  border-radius: 20px; 
-  outline: 1px solid #d9d9d933; 
-  padding: 20px;
-  text-align: left;
-  color: var(--light);
-  margin: 20px 0px;
-}
-
-
-#rightControls {
-  position: absolute;
-  padding: 20px;
-  width: 25vw;
-  top: 0; 
-  right: 0;
-  font-size: 15px;
-  border-radius: 12px;
-}
-
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #04AA6D;
-  cursor: pointer;
-}
-
-
-
-button {
-  width: 100px;
-  aspect-ratio:  3 / 1;
-  font-family: Light;
-  margin-left: 10px;
-  margin-right: 10px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  align-self: stretch;
-  border-radius: 5px;
-  border: 0px solid var(--light);
-  background: #bbc7d6a0;
-  color: black;
-  cursor: pointer;
-  font-size: 15px;
-  transition: background-color 0.3s;
-  border-radius: 5px;
-}
-
-#sideButtonContainer {
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-  justify-content: space-around; /* Distribute items with space around them */
-  gap: 10px; /* Gap between items */
-}
-
-.sideButton {
-  font-family: Light;
-  flex: 1 1 calc(33.333% - 20px); /* Flex basis to take 1/3rd of the container width minus the gap */
-  margin: 5px; /* Margin for spacing between buttons */
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  border-radius: 5px;
-}
-
-
-#animButtonContainer {
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-  gap: 10px; /* Gap between items */
-  row-gap: 15px;
-}
-
-button:hover {
-  background: var(--light);
-  transition: 0.5s ease;
-}
-
-.active-button {
-  background: var(--light);
-}
-
-
-.button-grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 10px;
-  row-gap: 10px;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 20px;
-}
-
-.gridButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#generalcontrols {
-  position: absolute;
-  top:0;
-  right:0;
-  padding: 20px;
-  width: 25vw;
-  font-size: 15px;
-  border-radius: 12px;
-}
-
-
-#generalcontrols > button {
-  cursor: pointer;
-}
-
-#switches {
-  outline: 0px solid #d9d9d933; 
-}
 
 .controlshidden {
   visibility: hidden;
@@ -365,37 +402,6 @@ button:hover {
 }
 
 
-.keyboardContainer {
-  margin: 20px;
-}
-
-#keyboard {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.key {
-  /* flex: 1 1 calc(20% - 20px);  */
-  width: 40px;
-  height: 40px;
-  margin: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #bbc7d6a0;
-  color: var(--blue);
-  border-radius: 5px;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s;
-}
-
-.key:hover {
-  background-color: var(--light);
-}
 
 #textInput {
   width: 100%;
@@ -452,20 +458,32 @@ button:hover {
 
 
 /* COLOR BUTTONS */
+
+.colorinput {
+  margin: auto; /* Center the div using margin */
+  padding: 0px 20px;
+  text-align: center;
+}
+
+
 .colorinput > button {
-  border: 1px white solid;
   cursor: pointer;
   width: 30px;
   height: 30px;
+  margin: 10px;
+  padding: 20px; /* Add some padding for better visibility */
+
 }
 
-.colorinput > button:hover {
-  box-shadow: 0px 1px 2px 0px rgba(100, 100, 100, 0.3), 0px 2px 6px 2px rgba(100, 100, 100, 0.15);
-}
+.colorinput button:hover {
+  margin: 10px;
+  outline: 1px solid var(--light); /* 2px light green solid outline */
+} 
 
 #color1 {
   background: var(--blue);
- 
+  outline: 1px solid var(--light); /* 2px light green solid outline */
+
 }
 
 #color2 {
@@ -482,7 +500,7 @@ button:hover {
 }
 
 #color5 {
-  background-image: var(--light);
+  background-image: var(--regular);
 }
 
 #color6 {
@@ -528,8 +546,6 @@ animation: rise1 10s linear infinite;
   50%{
     transform: rotateX(-30deg) rotateY(-30deg) scale3d(0.8,0.8,0.8);
   }
-
-
   100%{
     transform: rotateX(-90deg) rotateY(0deg) scale3d(1,1,1) ;
   }
@@ -579,4 +595,35 @@ animation: rise1 10s linear infinite;
   100%{
     transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
   }
+}
+
+
+.logo {
+  position: fixed;
+  right: 0;
+  bottom: 0px;
+  /* margin: 10px; */
+}
+
+.logo img {
+  max-width: 20vw;
+  height: auto;
+  padding: 20px;
+}
+
+.copyright {
+  position: fixed;
+  text-align: left;
+  left: 0;
+  bottom: 10px;
+  padding: 20px; /* Add some padding for better appearance */
+  color: var(--light);
+  font-size: 10px; /* Adjust font size for the main text */
+  opacity: 0.5;
+}
+
+
+.copyright a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit color from parent */
 }
