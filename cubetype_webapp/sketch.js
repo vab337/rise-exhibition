@@ -205,12 +205,19 @@ for (var t = 0; t < 6; t++) {
   const sideButton = document.createElement("button");
   sideButton.className = "sideButton";
   sideButton.id = "sideButton" + t ;
-  sideButton.innerText = "Side " + (t+1);
   sideButton.addEventListener("click", sideChosen);
   sideButton.addEventListener("mouseover", sideHover);
   sideButton.addEventListener("mouseout", sideHoverEnd);
   document.getElementById("sideButtonContainer").appendChild(sideButton);
   }
+
+document.getElementById('sideButton0').innerText = "Top";
+document.getElementById('sideButton1').innerText = "Bottom";
+document.getElementById('sideButton2').innerText = "Side 1";
+document.getElementById('sideButton3').innerText = "Side 2";
+document.getElementById('sideButton4').innerText = "Side 3";
+document.getElementById('sideButton5').innerText = "Side 4";
+
 
 
   const sideButtons = document.getElementsByClassName("sideButton");
